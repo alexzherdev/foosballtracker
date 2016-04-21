@@ -12,7 +12,15 @@ var eslint = require('gulp-eslint');
 var config = {
   paths: {
     html: './src/**/*.html',
-    jsDir: './src/js/',
+    jsDirs: [
+      './src/js/',
+      './src/js/actions/',
+      './src/js/components/',
+      './src/js/constants/',
+      './src/js/dispatchers/',
+      './src/js/pages/',
+      './src/js/stores/'
+    ],
     js: './src/js/**/*.js',
     mainJs: './src/js/main.js',
     css: [
@@ -36,12 +44,12 @@ gulp.task('css', function() {
 
 gulp.task('js', function() {
   var bundler = browserify({
-    paths: [config.paths.jsDir],
+    paths: config.paths.jsDirs,
     entries: [config.paths.mainJs],
     debug: true,
-    // plugin: [watchify],
     cache: {},
-    packageCache: {}
+    packageCache: {},
+    fullPaths: true
   });
 
   var watcher = watchify(bundler);
@@ -49,8 +57,7 @@ gulp.task('js', function() {
   function bundle() {
     bundler
       .transform(babelify, {
-        presets: ['es2015', 'react', 'stage-0'],
-        // plugins: ['transform-class-properties', 'syntax-class-properties']
+        presets: ['es2015', 'react', 'stage-0']
       })
       .bundle()
       .on('error', console.error.bind(console))

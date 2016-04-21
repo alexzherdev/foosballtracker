@@ -14,6 +14,7 @@ export default class Nav extends React.Component {
         <ul className="nav navbar-nav">
           <NavLink to="/new">New Score</NavLink>
           <li><a href="#">Stats</a></li>
+          <NavLink to="/players">Players</NavLink>
         </ul>
       </nav>
     );
