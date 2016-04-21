@@ -1,13 +1,13 @@
 {
-  "name": "kickerboard",
+  "name": "foosballtracker",
   "version": "1.0.0",
-  "description": "Kicker score board",
+  "description": "Foosball score board",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alex Zherdev",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "flux": "^2.1.1",
     "keymirror": "^0.1.1",
