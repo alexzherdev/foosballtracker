@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Foosball score board",
   "main": "index.js",
+  "repository": "alexzherdev/foosballtracker",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
