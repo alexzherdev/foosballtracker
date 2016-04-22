@@ -10,6 +10,8 @@
   "author": "Alex Zherdev",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
     "flux": "^2.1.1",
     "keymirror": "^0.1.1",
     "knex": "^0.10.0",
@@ -17,6 +19,7 @@
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
     "react-router": "^2.0.1",
+    "superagent": "^1.8.3",
     "underscore": "^1.8.3"
   },
   "devDependencies": {

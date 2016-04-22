@@ -13,6 +13,7 @@ var config = {
   paths: {
     html: './src/**/*.html',
     jsDirs: [
+      './',
       './src/js/',
       './src/js/actions/',
       './src/js/components/',

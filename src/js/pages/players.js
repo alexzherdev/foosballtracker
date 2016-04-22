@@ -2,6 +2,7 @@ import React from 'react';
 
 import AddPlayer from 'addPlayer';
 import PlayerStore from 'playerStore';
+import PlayerActions from 'playerActions';
 
 
 export default class Players extends React.Component {
@@ -16,6 +17,7 @@ export default class Players extends React.Component {
 
   componentDidMount() {
     PlayerStore.addChangeListener(this.onPlayersChange);
+    PlayerActions.loadPlayers();
   }
 
   componentWillUnmount() {
