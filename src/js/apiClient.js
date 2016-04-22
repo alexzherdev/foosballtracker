@@ -12,8 +12,7 @@ let ApiClient = {
   },
 
   getPlayers() {
-    return request.get(this.baseUrl() + '/players')
-      .set('Accept', 'application/json')
+    request.get(this.baseUrl() + '/players')
       .end((err, res) => {
         PlayerActions.loadPlayersResponse(res);
       });
@@ -21,4 +20,3 @@ let ApiClient = {
 };
 
 export default ApiClient;
-

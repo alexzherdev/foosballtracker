@@ -11,4 +11,10 @@ router.get('/', (req, res, next) => {
   }).catch(next);
 });
 
+router.post('/', (req, res, next) => {
+  Player.create(req.body.name).then((player) => {
+    res.send(player);
+  }).catch(next);
+});
+
 module.exports = router;
