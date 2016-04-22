@@ -13,7 +13,7 @@ export default class AddPlayer extends React.Component {
   }
 
   onSubmit() {
-    PlayerActions.addPlayer(this.state.name);
+    PlayerActions.createPlayer(this.state.name);
     this.setState({ name: '' });
   }
 
