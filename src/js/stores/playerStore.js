@@ -6,11 +6,15 @@ import PlayerConstants from 'playerConstants';
 
 const CHANGE_EVENT = 'change';
 
-const _store = [{ name: 'Alex' }, { name: 'Denis' }];
+const _store = [];
 
 let PlayerStore = Object.assign({}, EventEmitter.prototype, {
   getPlayers() {
     return _store;
+  },
+
+  setPlayers(players) {
+    Array.prototype.splice.apply(_store, [0, _store.length].concat(players));
   },
 
   addPlayer(value) {
@@ -34,6 +38,10 @@ KSDispatcher.register(({ action: { actionType, data } }) => {
   switch (actionType) {
     case PlayerConstants.ADD_PLAYER:
       PlayerStore.addPlayer(data);
+      PlayerStore.emitChange();
+      break;
+    case PlayerConstants.LOAD_PLAYERS_RESPONSE:
+      PlayerStore.setPlayers(data);
       PlayerStore.emitChange();
       break;
   }
