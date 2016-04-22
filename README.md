@@ -1,3 +1,4 @@
+![Build status](https://travis-ci.org/alexzherdev/foosballtracker.svg?branch=master)
 # Foosball Tracker
 A simple app to keep track of your foosball match scores, at home or in the office game room.
 
