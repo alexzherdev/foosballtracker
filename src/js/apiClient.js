@@ -8,7 +8,15 @@ import config from 'config';
 
 let ApiClient = {
   baseUrl() {
-    return `${config.host}:${config.port}`;
+    return `${config.host}:${config.apiPort}`;
+  },
+
+  createPlayer(name) {
+    request.post(this.baseUrl() + '/players')
+      .send({ name })
+      .end((err, res) => {
+        PlayerActions.createPlayerResponse(res);
+      });
   },
 
   getPlayers() {

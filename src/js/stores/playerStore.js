@@ -14,11 +14,11 @@ let PlayerStore = Object.assign({}, EventEmitter.prototype, {
   },
 
   setPlayers(players) {
-    Array.prototype.splice.apply(_store, [0, _store.length].concat(players));
+    _store.splice(0, _store.length, ...players);
   },
 
-  addPlayer(value) {
-    _store.push({name: value});
+  addPlayer(attributes) {
+    _store.push(attributes);
   },
 
   addChangeListener(cb) {
@@ -36,7 +36,7 @@ let PlayerStore = Object.assign({}, EventEmitter.prototype, {
 
 KSDispatcher.register(({ action: { actionType, data } }) => {
   switch (actionType) {
-    case PlayerConstants.ADD_PLAYER:
+    case PlayerConstants.CREATE_PLAYER_RESPONSE:
       PlayerStore.addPlayer(data);
       PlayerStore.emitChange();
       break;
