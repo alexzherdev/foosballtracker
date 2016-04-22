@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 
-import KSDispatcher from 'dispatcher';
-import PlayerConstants from 'playerConstants';
+import KSDispatcher from '../dispatchers/dispatcher';
+import PlayerConstants from '../constants/playerConstants';
 
 
 const CHANGE_EVENT = 'change';
@@ -34,7 +34,7 @@ let PlayerStore = Object.assign({}, EventEmitter.prototype, {
   }
 });
 
-KSDispatcher.register(({ action: { actionType, data } }) => {
+let callback = ({ action: { actionType, data }}) => {
   switch (actionType) {
     case PlayerConstants.CREATE_PLAYER_RESPONSE:
       PlayerStore.addPlayer(data);
@@ -45,6 +45,7 @@ KSDispatcher.register(({ action: { actionType, data } }) => {
       PlayerStore.emitChange();
       break;
   }
-});
+};
+KSDispatcher.register(callback);
 
 export default PlayerStore;
