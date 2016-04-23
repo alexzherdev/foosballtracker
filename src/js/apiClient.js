@@ -1,6 +1,6 @@
 import request from 'superagent';
 
-import KSDispatcher from 'dispatcher';
+import FTDispatcher from 'dispatcher';
 import PlayerActions from 'playerActions';
 
 import config from 'config';
