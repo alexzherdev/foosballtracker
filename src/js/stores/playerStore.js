@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 
-import KSDispatcher from '../dispatchers/dispatcher';
+import FTDispatcher from '../dispatchers/dispatcher';
 import PlayerConstants from '../constants/playerConstants';
 
 
@@ -46,6 +46,6 @@ let callback = ({ action: { actionType, data }}) => {
       break;
   }
 };
-KSDispatcher.register(callback);
+FTDispatcher.register(callback);
 
 export default PlayerStore;
