@@ -1,19 +1,19 @@
 'use strict';
 
-const Player = require('../models/player');
+const Match = require('../models/match');
 
 const express = require('express'),
   router = express.Router();
 
 router.get('/', (req, res, next) => {
-  Player.fetchAll().then((players) => {
-    res.send(players);
+  Match.fetchAll().then((matches) => {
+    res.send(matches);
   }).catch(next);
 });
 
 router.post('/', (req, res, next) => {
-  Player.createWithEigenTeam({ name: req.body.name }).then((player) => {
-    res.send(player);
+  Match.forge(req.body).save().then((match) => {
+    res.send(match);
   }).catch(next);
 });
 

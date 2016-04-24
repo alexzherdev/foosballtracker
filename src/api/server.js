@@ -1,20 +1,21 @@
 'use strict';
 
 
-let express = require('express');
-let bodyParser = require('body-parser');
-let cors = require('cors');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-let config = require('../../config');
-let players = require('./controllers/players');
+const config = require('../../config');
+const players = require('./controllers/players');
+const matches = require('./controllers/matches');
 
 
-let app = express();
+const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/players', players);
-
+app.use('/matches', matches);
 
 app.listen(config.apiPort, () => {
   console.log(`Listening on port ${config.apiPort}`);
