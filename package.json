@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "bookshelf": "^0.9.4",
     "bootstrap": "^3.3.6",
     "cors": "^2.7.1",
     "express": "^4.13.4",
