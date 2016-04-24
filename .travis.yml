@@ -7,6 +7,9 @@ before_script:
   - sleep 3
 addons:
   firefox: "45.0"
+  code_climate:
+    repo_token:
+      secure: "JIo9XVBDLrpUgXszH9ZllhkpU7+wnlTDRHaUvcZQnWzue2Xth+3qNSHMpk2jbigkMu9ci9ixWibMyRVtPyxwu/AX1yt1s/2o/OhYLOexOAfDQbzByP4TEXcnySrwBylKk+UoNliEbYZTU6xUMbPrSqHrK3gPIAJx8F0JRmbBLvwAJeaE3WeAeluzHquNI5DMoJeTFX/TeBN44XkCVvxhjnrl5uPHJmMUy2sBPANkQcoxV/5zxC8aCFHLX/mxoMPnfX1fGeGGTkGmxSuGrlMpBpaeiN3zNlYR6JRBEX3qMyB9oKz2ObcsZdTnn0tvuRinfsgpDafOV6aSGmQfRAMqzuCuuQh6zjcOCeb53bNeODLehfhj2VqrXfhrZVkrV+wzW171WDyqJd1nSOGiQyyAmYbjFmDwXse/jNnkprxMp5CduhC/8mirxbsW/AA8xlrw2JGpaUjjgYXus7OtJMGtJgoSJ9e4GrDDiGBevO9COqHAiVBanbyWaZL4AB3U26N2pPiKvCAp7YtI0AM0caGQnOs0wclFGW5tx0Dwg1hzHKyT8oNAthlQvkJG3Gv2vaTbdeBgwKkRHDT5Jss+GfxBYp+Jes33xQ6468Wpnpqiyctr3R1qIcVzvArR6Aaj/vwGlcFgraTnp7M6Qx9WsnrkEHze2nycVnePZ/NfdtA3DgY="
 
 notifications:
   email: false
