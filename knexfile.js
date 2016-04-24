@@ -1,20 +1,20 @@
+'use strict';
+
+let secrets = require('./secrets');
+
 module.exports = {
   development: {
     client: 'mysql',
-    connection: {
-      database: 'foosball',
-      user:     'root',
-      password: ''
-    }
+    connection: Object.assign({
+      database: 'foosball'
+    }, secrets.development)
   },
 
   staging: {
     client: 'postgresql',
-    connection: {
-      database: 'foosball',
-      user:     'username',
-      password: 'password'
-    },
+    connection: Object.assign({
+      database: 'foosball'
+    }, secrets.staging),
     pool: {
       min: 2,
       max: 10
