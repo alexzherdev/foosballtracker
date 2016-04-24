@@ -11,9 +11,11 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "bootstrap": "^3.3.6",
     "cors": "^2.7.1",
     "express": "^4.13.4",
     "flux": "^2.1.1",
+    "jquery": "^2.2.3",
     "keymirror": "^0.1.1",
     "knex": "^0.10.0",
     "moment": "^2.13.0",
@@ -22,6 +24,7 @@
     "react-dom": "^15.0.0",
     "react-router": "^2.0.1",
     "superagent": "^1.8.3",
+    "toastr": "^2.1.2",
     "underscore": "^1.8.3"
   },
   "devDependencies": {

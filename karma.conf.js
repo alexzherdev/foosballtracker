@@ -14,6 +14,9 @@ module.exports = function(config) {
     singleRun: true,
     webpack: {
       module: {
+        noParse: [
+            /node_modules\/sinon/,
+        ],
         loaders: [
           { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
         ],

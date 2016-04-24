@@ -1,10 +1,27 @@
 import request from 'superagent';
+import toastr from 'toastr';
 
-import FTDispatcher from 'dispatcher';
-import PlayerActions from 'playerActions';
+import FTDispatcher from './dispatchers/dispatcher';
+import PlayerActions from './actions/playerActions';
 
-import config from 'config';
+import config from '../../config';
 
+
+toastr.options.closeButton = true;
+
+let notification = (style, text) => {
+  toastr[style](text);
+};
+
+let handleResponse = (err, res, callback) => {
+  if (res && !res.ok) {
+    notification('error', `Server error: ${res.text}`);
+  } else if (err) {
+    notification('error', 'Request error. Check your network settings.');
+  } else {
+    callback(err, res);
+  }
+};
 
 let ApiClient = {
   baseUrl() {
@@ -15,14 +32,18 @@ let ApiClient = {
     request.post(this.baseUrl() + '/players')
       .send({ name })
       .end((err, res) => {
-        PlayerActions.createPlayerResponse(res);
+        handleResponse(err, res, (err, res) => {
+          PlayerActions.createPlayerResponse(res);
+        });
       });
   },
 
   getPlayers() {
     request.get(this.baseUrl() + '/players')
       .end((err, res) => {
-        PlayerActions.loadPlayersResponse(res);
+        handleResponse(err, res, (err, res) => {
+          PlayerActions.loadPlayersResponse(res);
+        });
       });
   }
 };

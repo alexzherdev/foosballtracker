@@ -1,6 +1,6 @@
-import FTDispatcher from 'dispatcher';
-import PlayerConstants from 'playerConstants';
-import ApiClient from 'apiClient';
+import FTDispatcher from '../dispatchers/dispatcher';
+import PlayerConstants from '../constants/playerConstants';
+import ApiClient from '../apiClient';
 
 
 const PlayerActions = {
