@@ -1,8 +1,8 @@
 import React from 'react';
 
-import AddPlayer from 'addPlayer';
-import PlayerStore from 'playerStore';
-import PlayerActions from 'playerActions';
+import AddPlayer from './addPlayer';
+import PlayerStore from '../stores/playerStore';
+import PlayerActions from '../actions/playerActions';
 
 
 export default class Players extends React.Component {

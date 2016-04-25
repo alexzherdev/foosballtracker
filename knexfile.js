@@ -6,7 +6,8 @@ module.exports = {
   development: {
     client: 'mysql',
     connection: Object.assign({
-      database: 'foosball'
+      database: 'foosball',
+      timezone: 'UTC'
     }, secrets.development)
   },
 
