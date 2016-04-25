@@ -1,11 +1,28 @@
 'use strict';
 
 
-let db = require('../db');
+const db = require('../db');
+const Team = require('./team');
 
-let Player = db.Model.extend({
+const Player = db.Model.extend({
   tableName: 'players',
-  hasTimestamps: true
+  hasTimestamps: true,
+
+  teams() {
+    return this.belongsToMany(Team);
+  },
+
+  eigenTeam() {
+    return this.teams().query({ where: { is_eigen_team: true } }).fetchOne();
+  }
+}, {
+  createWithEigenTeam(attributes) {
+    return db.transaction((transacting) => {
+      return this.forge(attributes).save(null, { transacting }).tap((player) => {
+        return player.teams().create({ name: player.get('name'), is_eigen_team: true }, { transacting });
+      });
+    });
+  }
 });
 
 module.exports = Player;
