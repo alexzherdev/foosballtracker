@@ -1,4 +1,5 @@
 const RewireWebpackPlugin = require("rewire-webpack");
+const path = require('path');
 
 module.exports = function(config) {
   config.set({
@@ -8,25 +9,46 @@ module.exports = function(config) {
     ],
     frameworks: ['jasmine'],
     preprocessors: {
-      'tests.webpack.js': ['webpack'],
+      'tests.webpack.js': ['webpack', 'sourcemap'],
       'src/**/*.js': ['coverage']
     },
     reporters: ['progress', 'coverage'],
     singleRun: true,
     webpack: {
+      devtool: 'inline-source-map',
+      node: {
+        fs: 'empty',
+        net: 'empty'
+      },
+
+      isparta: {
+          embedSource: true,
+          noAutoWrap: true
+      },
+
       module: {
         noParse: [
-            /node_modules\/sinon/,
+            /node_modules\/sinon/
         ],
         loaders: [
-          { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
-        ],
-        plugins: ['babel-runtime'],
-        postLoaders: [{ //delays coverage til after tests are run, fixing transpiled source coverage error
-          test: /\.js$/,
-          exclude: /(test|node_modules)\//,
-          loader: 'istanbul-instrumenter'
-        }]
+          { test: /\.json$/, loader: "json" },
+          {
+            test: /\.js$/,
+            exclude: [
+              path.resolve('node_modules/')
+            ],
+            loader: 'babel-loader',
+            query: { presets: ['es2015'] }
+          },
+          // Instrument source files with isparta-loader (will perform babel transpiling).
+          {
+            test: /\.js$/,
+            include: [
+              path.resolve('src/')
+            ],
+            loader: 'isparta'
+          }
+        ]
       },
       plugins: [new RewireWebpackPlugin()],
       watch: true
@@ -39,7 +61,11 @@ module.exports = function(config) {
       reporters: [
         { type: 'html', subdir: 'report-html' },
         { type: 'lcov', subdir: 'report-lcov' }
-      ]
+      ],
+      instrumenters: { isparta : require('isparta') },
+      instrumenter: {
+        '**/*.js': 'isparta'
+      }
     }
   });
 };

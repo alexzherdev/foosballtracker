@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PlayerActions from 'playerActions';
+import PlayerActions from '../actions/playerActions';
 
 
 export default class AddPlayer extends React.Component {
