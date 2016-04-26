@@ -3,6 +3,7 @@ import toastr from 'toastr';
 
 import FTDispatcher from './dispatchers/dispatcher';
 import PlayerActions from './actions/playerActions';
+import ScoreActions from './actions/scoreActions';
 
 import config from '../../config';
 
@@ -29,7 +30,7 @@ let ApiClient = {
   },
 
   createPlayer(name) {
-    request.post(this.baseUrl() + '/players')
+    request.post(`${this.baseUrl()}/players`)
       .send({ name })
       .end((err, res) => {
         handleResponse(err, res, (err, res) => {
@@ -39,10 +40,29 @@ let ApiClient = {
   },
 
   getPlayers() {
-    request.get(this.baseUrl() + '/players')
+    request.get(`${this.baseUrl()}/players`)
       .end((err, res) => {
         handleResponse(err, res, (err, res) => {
           PlayerActions.loadPlayersResponse(res);
+        });
+      });
+  },
+
+  getScores() {
+    request.get(`${this.baseUrl()}/matches`)
+      .end((err, res) => {
+        handleResponse(err, res, (err, res) => {
+          ScoreActions.loadScoresResponse(res);
+        });
+      });
+  },
+
+  createScore(team1Score, team2Score, team1, team2) {
+    request.post(`${this.baseUrl()}/matches`)
+      .send({ team1_score: team1Score, team2_score: team2Score, team1, team2 })
+      .end((err, res) => {
+        handleResponse(err, res, (err, res) => {
+          ScoreActions.createScoreResponse(res);
         });
       });
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AddPlayer from './addPlayer';
+import AddPlayer from '../components/addPlayer';
 import PlayerStore from '../stores/playerStore';
 import PlayerActions from '../actions/playerActions';
 

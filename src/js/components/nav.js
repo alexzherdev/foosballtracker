@@ -12,7 +12,7 @@ export default class Nav extends React.Component {
           <Link to="/" className="navbar-brand">Foosball Tracker</Link>
         </div>
         <ul className="nav navbar-nav">
-          <NavLink to="/new">New Score</NavLink>
+          <NavLink to="/scores">Scores</NavLink>
           <li><a href="#">Stats</a></li>
           <NavLink to="/players">Players</NavLink>
         </ul>
