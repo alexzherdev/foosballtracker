@@ -5,6 +5,9 @@ before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3
+after_script:
+  - node_modules/.bin/codeclimate-test-reporter < coverage/report-lcov/lcov.info
+
 addons:
   firefox: "45.0"
   code_climate:
