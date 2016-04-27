@@ -12,7 +12,11 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  Match.forge(req.body).save().then((match) => {
+  let body = req.body;
+  Match.createForTeams(
+    body.team1_score, body.team2_score,
+    body.team1, body.team2
+  ).then((match) => {
     res.send(match);
   }).catch(next);
 });

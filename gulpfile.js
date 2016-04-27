@@ -8,11 +8,17 @@ var watchify = require('watchify');
 var source = require('vinyl-source-stream');
 var concat = require('gulp-concat');
 var eslint = require('gulp-eslint');
+var sass = require('gulp-sass');
+var merge = require('merge-stream');
+var gutil = require('gulp-util');
+
 
 var config = {
   paths: {
     html: './src/**/*.html',
     jsDirs: [
+      './node_modules/jquery/dist/jquery.min.js',
+      './node_modules/bootstrap/dist/js/npm.js',
       './',
       './src/js/',
       './src/js/actions/',
@@ -29,8 +35,18 @@ var config = {
       'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
       'node_modules/toastr/build/toastr.min.css'
     ],
+    scss: [
+      'src/css/*.scss'
+    ],
     dist: './dist'
   }
+};
+
+var lint = function(files) {
+  gutil.log('linting', files);
+  return gulp.src(files)
+    .pipe(eslint({ config: 'eslint.config.json' }))
+    .pipe(eslint.format());
 };
 
 gulp.task('html', function() {
@@ -38,10 +54,17 @@ gulp.task('html', function() {
     .pipe(gulp.dest(config.paths.dist));
 });
 
-gulp.task('css', function() {
-  gulp.src(config.paths.css)
+gulp.task('sass', function () {
+  merge(
+    gulp.src(config.paths.css)
+      .pipe(sourcemaps.init()),
+    gulp.src(config.paths.scss)
+      .pipe(sourcemaps.init())
+      .pipe(sass().on('error', sass.logError))
+  )
     .pipe(concat('application.css'))
-    .pipe(gulp.dest(config.paths.dist + '/css'))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(config.paths.dist + '/css'));
 });
 
 gulp.task('js', function() {
@@ -56,13 +79,19 @@ gulp.task('js', function() {
 
   var watcher = watchify(bundler);
 
-  function bundle() {
-    bundler
-      .transform(babelify)
-      .bundle()
-      .on('error', console.error.bind(console))
-      .pipe(source('application.js'))
-      .pipe(gulp.dest(config.paths.dist + '/scripts'));;
+  function bundle(changedFiles) {
+    var bundleStream = bundler
+        .transform(babelify)
+        .bundle()
+        .on('error', console.error.bind(console))
+        .pipe(source('application.js'))
+        .pipe(gulp.dest(config.paths.dist + '/scripts'));
+    if (changedFiles) {
+      var lintStream = lint(changedFiles);
+      return merge(bundleStream, lintStream);
+    }
+
+    return bundleStream;
   }
 
   bundler.on('update', bundle);
@@ -71,9 +100,9 @@ gulp.task('js', function() {
 });
 
 gulp.task('lint', function() {
-  return gulp.src(config.paths.js)
-    .pipe(eslint({ config: 'eslint.config.json' }))
-    .pipe(eslint.format());
+  return lint(config.paths.js);
 });
 
-gulp.task('default', ['html', 'lint', 'js', 'css']);
+gulp.task('default', ['html', 'lint', 'js', 'sass'], function() {
+  gulp.watch(config.paths.scss, ['sass']);
+});
