@@ -11,6 +11,14 @@ module.exports = {
     }, secrets.development)
   },
 
+  test: {
+    client: 'mysql',
+    connection: Object.assign({
+      database: 'foosball_test',
+      timezone: 'UTC'
+    }, secrets.test)
+  },
+
   staging: {
     client: 'postgresql',
     connection: Object.assign({

@@ -1,10 +1,10 @@
 exports.up = function(knex, Promise) {
-  var teams = knex.schema.createTable('teams', function(table) {
+  var teams = knex.schema.createTableIfNotExists('teams', function(table) {
     table.increments();
     table.string('name');
     table.timestamps();
   });
-  var matches = knex.schema.createTable('matches', function(table) {
+  var matches = knex.schema.createTableIfNotExists('matches', function(table) {
     table.increments();
     table.integer('team1_id');
     table.integer('team2_id');

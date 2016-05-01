@@ -31,7 +31,6 @@ module.exports = function(config) {
             /node_modules\/sinon/
         ],
         loaders: [
-          { test: /\.json$/, loader: "json" },
           {
             test: /\.js$/,
             exclude: [
@@ -57,10 +56,10 @@ module.exports = function(config) {
       noInfo: true
     },
     coverageReporter: {
-      dir: 'coverage',
+      dir: 'coverage/ui',
       reporters: [
-        { type: 'html', subdir: 'report-html' },
-        { type: 'lcov', subdir: 'report-lcov' }
+        { type: 'lcov', subdir: 'lcov-report' },
+        { type: 'json', subdir: './', file: 'coverage.json' }
       ],
       instrumenters: { isparta : require('isparta') },
       instrumenter: {
