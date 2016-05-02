@@ -2,14 +2,14 @@
 
 
 const db = require('../db');
-const Team = require('./team');
+require('./team');
 
 const Player = db.Model.extend({
   tableName: 'players',
   hasTimestamps: true,
 
   teams() {
-    return this.belongsToMany(Team);
+    return this.belongsToMany('Team');
   },
 
   eigenTeam() {
@@ -31,4 +31,4 @@ const Player = db.Model.extend({
   }
 });
 
-module.exports = Player;
+module.exports = db.model('Player', Player);

@@ -6,7 +6,7 @@
   "repository": "alexzherdev/foosballtracker",
   "scripts": {
     "test": "NODE_ENV=test ./tests.sh",
-    "test-server": "NODE_ENV=test babel-node ./node_modules/isparta/lib/cli cover src/api/spec/support/run.js --dir ./coverage/api/"
+    "test-api": "NODE_ENV=test babel-node ./node_modules/isparta/lib/cli cover src/api/spec/support/run.js --dir ./coverage/api/ -x secrets.js"
   },
   "author": "Alex Zherdev",
   "license": "MIT",
@@ -45,6 +45,7 @@
     "browserify": "^13.0.0",
     "codeclimate-test-reporter": "^0.3.1",
     "core-js": "^2.2.2",
+    "debug": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.0",
@@ -74,6 +75,7 @@
     "rewire": "^2.5.1",
     "rewire-webpack": "^1.0.1",
     "sinon": "^1.17.3",
+    "supertest": "^1.2.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0",
     "webpack": "^1.13.0"
