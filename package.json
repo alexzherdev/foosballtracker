@@ -21,14 +21,14 @@
     "jquery": "^2.2.3",
     "keymirror": "^0.1.1",
     "knex": "^0.10.0",
+    "lodash": "^4.11.2",
     "moment": "^2.13.0",
     "mysql": "^2.10.2",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
     "react-router": "^2.0.1",
     "superagent": "^1.8.3",
-    "toastr": "^2.1.2",
-    "underscore": "^1.8.3"
+    "toastr": "^2.1.2"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",
