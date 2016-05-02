@@ -1,6 +1,6 @@
 import React from 'react';
 
-import _ from 'underscore';
+import _ from 'lodash';
 
 import PlayerPicker from './playerPicker';
 import ScoreActions from '../actions/scoreActions';

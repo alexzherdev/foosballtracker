@@ -2,7 +2,7 @@
 
 
 const Promise = require('bluebird');
-const _ = require('underscore');
+const _ = require('lodash');
 
 const db = require('../db');
 const Team = require('./team');

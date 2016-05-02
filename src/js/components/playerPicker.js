@@ -1,6 +1,6 @@
 import React from 'react';
 
-import _ from 'underscore';
+import _ from 'lodash';
 
 import PlayerActions from '../actions/playerActions';
 
@@ -12,7 +12,7 @@ export default class PlayerPicker extends React.Component {
   }
 
   getDisplayName(id) {
-    let player = _.findWhere(this.props.players, { id });
+    let player = _.find(this.props.players, { id });
     return player ? player.name : 'Select';
   }
 
