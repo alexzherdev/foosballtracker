@@ -1,15 +1,17 @@
 'use strict';
 
 
-let db = require('../db');
-let Player = require('./Player');
+const db = require('../db');
+require('./player');
 
-let Team = db.Model.extend({
+const Player = db.model('Player');
+
+const Team = db.Model.extend({
   tableName: 'teams',
   hasTimestamps: true,
 
   players() {
-    return this.belongsToMany(Player);
+    return this.belongsToMany('Player');
   }
 }, {
   findOrCreateForPlayerIds(playerIds) {
@@ -27,11 +29,13 @@ let Team = db.Model.extend({
           return Player.query('whereIn', 'id', playerIds).fetchAll().then((players) => {
             let team = new Team({
               name: players.pluck('name').sort().join(' & '),
-              is_eigen_team: false
+              is_eigen_team: players.length === 1 ? true : false
             });
             return team.save().then(() => {
               let id = team.id;
-              return team.clear().set('id', id).fetch().then(() => team.players().attach(playerIds));
+              return team.clear().set('id', id).fetch({ withRelated: ['players'] }).tap((t) => {
+                return t.players().attach(playerIds);
+              });
             });
           });
         }
@@ -39,4 +43,4 @@ let Team = db.Model.extend({
   }
 });
 
-module.exports = Team;
+module.exports = db.model('Team', Team);

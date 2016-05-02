@@ -8,6 +8,11 @@ const config = {
     apiPort: 7878
   },
 
+  test: {
+    host: 'http://localhost',
+    apiPort: 7879
+  },
+
   staging: {
 
   }

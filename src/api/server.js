@@ -20,3 +20,5 @@ app.use('/matches', matches);
 app.listen(config.apiPort, () => {
   console.log(`Listening on port ${config.apiPort}`);
 });
+
+module.exports = app;
