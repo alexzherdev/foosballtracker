@@ -42,7 +42,7 @@ export default class Scores extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container-fluid">
         <RecentScores scores={this.state.scores} />
         <NewScore players={this.state.players} />
       </div>

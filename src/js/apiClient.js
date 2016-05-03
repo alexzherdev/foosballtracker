@@ -4,6 +4,7 @@ import toastr from 'toastr';
 import FTDispatcher from './dispatchers/dispatcher';
 import PlayerActions from './actions/playerActions';
 import ScoreActions from './actions/scoreActions';
+import StatsActions from './actions/statsActions';
 
 import config from '../../config';
 
@@ -63,6 +64,15 @@ let ApiClient = {
       .end((err, res) => {
         handleResponse(err, res, (err, res) => {
           ScoreActions.createScoreResponse(res);
+        });
+      });
+  },
+
+  getStatsSummary() {
+    request.get(`${this.baseUrl()}/stats/summary`)
+      .end((err, res) => {
+        handleResponse(err, res, (err, res) => {
+          StatsActions.loadStatsSummaryResponse(res);
         });
       });
   }

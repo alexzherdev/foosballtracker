@@ -2,7 +2,8 @@
 
 
 const db = require('../db');
-const Player = require('./player');
+require('./player');
+const Player = db.model('Player');
 
 const Players = db.Collection.extend({
   model: Player
