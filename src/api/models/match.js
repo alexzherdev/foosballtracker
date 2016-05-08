@@ -39,6 +39,8 @@ const Match = db.Model.extend({
     });
   }
 }, {
+  get winPoints() { return WIN_POINTS; },
+
   createForTeams(team1Score, team2Score, team1Ids, team2Ids) {
     let team1, team2;
     if (team1Ids.length === 1) {

@@ -1,0 +1,21 @@
+.home {
+  .nav-tabs {
+    padding-left: 15px;
+  }
+
+  .tab-content {
+    padding: 15px;
+
+    .table {
+      width: 50%;
+
+      td {
+        width: 50%;
+      }
+
+      tr:first-child td {
+        border: 0;
+      }
+    }
+  }
+}

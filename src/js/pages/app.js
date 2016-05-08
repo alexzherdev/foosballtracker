@@ -9,7 +9,7 @@ export default class App extends React.Component {
     return (
       <div>
         <Nav />
-        <div className="container-fluid">
+        <div>
           {this.props.children}
         </div>
       </div>

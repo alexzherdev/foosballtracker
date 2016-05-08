@@ -5,6 +5,7 @@
   "main": "index.js",
   "repository": "alexzherdev/foosballtracker",
   "scripts": {
+    "start": "babel-node ./src/api/server",
     "test": "NODE_ENV=test ./tests.sh",
     "test-api": "NODE_ENV=test babel-node ./node_modules/isparta/lib/cli cover src/api/spec/support/run.js --dir ./coverage/api/ -x secrets.js"
   },

@@ -2,9 +2,10 @@
 
 
 const db = require('../db');
-require('./player');
 
+require('./player');
 const Player = db.model('Player');
+
 
 const Team = db.Model.extend({
   tableName: 'teams',
