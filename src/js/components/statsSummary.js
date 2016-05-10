@@ -10,7 +10,7 @@ export default class StatsSummary extends React.Component {
     let stats = this.props.stats;
     if (stats) {
       return (
-        <div>
+        <div className="stats-summary">
           <table className="table">
             <tbody>
               <tr>

@@ -6,15 +6,17 @@
   .tab-content {
     padding: 15px;
 
-    .table {
-      width: 50%;
-
-      td {
+    .stats-summary {
+      .table {
         width: 50%;
-      }
 
-      tr:first-child td {
-        border: 0;
+        td {
+          width: 50%;
+        }
+
+        tr:first-child td {
+          border: 0;
+        }
       }
     }
   }
