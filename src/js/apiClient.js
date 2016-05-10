@@ -75,6 +75,15 @@ let ApiClient = {
           StatsActions.loadStatsSummaryResponse(res);
         });
       });
+  },
+
+  getStats() {
+    request.get(`${this.baseUrl()}/stats`)
+      .end((err, res) => {
+        handleResponse(err, res, (err, res) => {
+          StatsActions.loadStatsResponse(res);
+        });
+      });
   }
 };
 

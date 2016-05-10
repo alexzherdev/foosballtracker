@@ -12,6 +12,16 @@ const StatsActions = {
 
   loadStatsSummaryResponse(response) {
     FTDispatcher.handleServerAction({ actionType: StatsConstants.LOAD_STATS_SUMMARY_RESPONSE, data: response.body });
+  },
+
+  loadStats() {
+    FTDispatcher.handleViewAction({ actionType: StatsConstants.LOAD_STATS });
+
+    ApiClient.getStats();
+  },
+
+  loadStatsResponse(response) {
+    FTDispatcher.handleServerAction({ actionType: StatsConstants.LOAD_STATS_RESPONSE, data: response.body });
   }
 };
 

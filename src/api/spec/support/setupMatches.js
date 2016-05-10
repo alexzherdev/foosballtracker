@@ -64,7 +64,7 @@ module.exports = function() {
 
         [10, 1, [this.platini.id, this.zidane.id], [this.buffon.id, this.maldini.id]],
         [2, 10, [this.platini.id, this.zidane.id], [this.buffon.id, this.maldini.id]],
-        [10, 1, [this.pele.id, this.ronaldo.id], [this.platini.id, this.zidane.id]],
+        [10, 0, [this.pele.id, this.ronaldo.id], [this.platini.id, this.zidane.id]],
         [10, 1, [this.buffon.id, this.maldini.id], [this.platini.id, this.zidane.id]]
       ], (args) => Match.createForTeams(...args))
     )
