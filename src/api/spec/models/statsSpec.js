@@ -57,12 +57,14 @@ describe('Stats', function() {
         expect(france.goals_against).toEqual(31);
         expect(france.goals_difference).toEqual(-18);
         expect(france.clean_sheets).toEqual(0);
+        expect(france.failed_to_score).toEqual(1);
 
         let brazil = _.find(twovtwo, { id: this.brazil.id });
         expect(brazil.goals_for).toEqual(10);
         expect(brazil.goals_against).toEqual(0);
         expect(brazil.goals_difference).toEqual(10);
         expect(brazil.clean_sheets).toEqual(1);
+        expect(brazil.failed_to_score).toEqual(0);
         done();
       });
     });
@@ -74,12 +76,14 @@ describe('Stats', function() {
         expect(platini.goals_against).toEqual(5);
         expect(platini.goals_difference).toEqual(15);
         expect(platini.clean_sheets).toEqual(0);
+        expect(platini.failed_to_score).toEqual(0);
 
         let maldini = _.find(onevone, { id: this.teamMaldini.id });
-        expect(maldini.goals_for).toEqual(14);
+        expect(maldini.goals_for).toEqual(10);
         expect(maldini.goals_against).toEqual(10);
-        expect(maldini.goals_difference).toEqual(4);
+        expect(maldini.goals_difference).toEqual(0);
         expect(maldini.clean_sheets).toEqual(1);
+        expect(maldini.failed_to_score).toEqual(1);
         done();
       });
     });

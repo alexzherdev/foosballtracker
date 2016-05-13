@@ -20,10 +20,8 @@ module.exports = {
   },
 
   staging: {
-    client: 'postgresql',
-    connection: Object.assign({
-      database: 'foosball'
-    }, secrets.staging),
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
       max: 10

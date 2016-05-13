@@ -63,6 +63,11 @@ const Match = db.Model.extend({
         return match.clear().set('id', id).fetch();
       });
     });
+  },
+
+  betweenTeams(team1Id, team2Id) {
+    return this.query({ where: db.knex.raw('(team1_id = ? and team2_id = ?)', [team1Id, team2Id]),
+      orWhere: db.knex.raw('(team1_id = ? and team2_id = ?)', [team2Id, team1Id]), orderBy: ['created_at', 'desc'] }).fetchAll();
   }
 });
 

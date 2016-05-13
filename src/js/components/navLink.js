@@ -7,7 +7,7 @@ export default class NavLink extends React.Component {
   };
 
   render() {
-    let isActive = this.context.router.isActive(this.props.to, true),
+    let isActive = this.context.router.isActive(this.props.to),
       className = isActive ? "active" : "";
 
     return (

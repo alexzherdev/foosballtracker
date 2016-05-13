@@ -5,6 +5,7 @@ import FTDispatcher from './dispatchers/dispatcher';
 import PlayerActions from './actions/playerActions';
 import ScoreActions from './actions/scoreActions';
 import StatsActions from './actions/statsActions';
+import TeamActions from './actions/teamActions';
 
 import config from '../../config';
 
@@ -82,6 +83,34 @@ let ApiClient = {
       .end((err, res) => {
         handleResponse(err, res, (err, res) => {
           StatsActions.loadStatsResponse(res);
+        });
+      });
+  },
+
+  getTeamStats(teamId) {
+    request.get(`${this.baseUrl()}/stats/${teamId}`)
+      .end((err, res) => {
+        handleResponse(err, res, (err, res) => {
+          StatsActions.loadTeamStatsResponse(res);
+        });
+      });
+  },
+
+  getTeams() {
+    request.get(`${this.baseUrl()}/teams`)
+      .end((err, res) => {
+        handleResponse(err, res, (err, res) => {
+          TeamActions.loadTeamsResponse(res);
+        });
+      });
+  },
+
+  getH2HMatches(team1Id, team2Id) {
+    request.get(`${this.baseUrl()}/matches/h2h`)
+      .query({ team1_id: team1Id, team2_id: team2Id })
+      .end((err, res) => {
+        handleResponse(err, res, (err, res) => {
+          StatsActions.loadH2HMatchesResponse(res);
         });
       });
   }

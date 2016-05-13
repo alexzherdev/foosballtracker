@@ -30,7 +30,7 @@ export default class Stats extends React.Component {
 
   render() {
     return (
-      <div className="home">
+      <div className="stats">
         <div className="container-fluid">
           <h4>Stats</h4>
         </div>

@@ -1,0 +1,54 @@
+.team-stats {
+  .panel {
+    .panel-heading {
+      padding: 6px 10px;
+
+      .panel-title {
+        font-size: 1em;
+      }
+    }
+
+    .table {
+      font-size: 0.9em;
+    }
+  }
+
+  .general, .scoring, .streaks {
+    .table {
+      td:nth-child(2) {
+        text-align: center;
+        font-weight: bold;
+        width: 6em;
+      }
+    }
+  }
+
+  .recent-scores {
+    td {
+      text-align: center;
+
+      .abbr-container {
+        position: absolute;
+        right: 20px;
+      }
+
+      abbr {
+        font-weight: bold;
+      }
+
+      .score-date {
+        position: absolute;
+        left: 20px;
+      }
+    }
+  }
+
+  .h2h {
+    .table {
+      th, td:nth-child(2), td:nth-child(3) {
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+  }
+}
