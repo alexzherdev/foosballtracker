@@ -4,7 +4,6 @@
 const db = require('../db');
 
 require('./player');
-const Player = db.model('Player');
 
 
 const Team = db.Model.extend({
@@ -13,6 +12,10 @@ const Team = db.Model.extend({
 
   players() {
     return this.belongsToMany('Player');
+  },
+
+  fetchWithPlayerCount() {
+    return this.fetch({ withRelated: [{ players: function(r) { r.count('* as count'); }}]});
   }
 }, {
   findOrCreateForPlayerIds(playerIds) {
@@ -27,7 +30,7 @@ const Team = db.Model.extend({
           // there should only ever be a single team for any given set of players
           return new Team({ id: result[0].id }).fetch();
         } else {
-          return Player.query('whereIn', 'id', playerIds).fetchAll().then((players) => {
+          return db.model('Player').query('whereIn', 'id', playerIds).fetchAll().then((players) => {
             let team = new Team({
               name: players.pluck('name').sort().join(' & '),
               is_eigen_team: players.length === 1 ? true : false

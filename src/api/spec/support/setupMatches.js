@@ -55,7 +55,7 @@ module.exports = function() {
       [this.france, this.italy, this.brazil] = teams;
     }).then(() => Promise.map([
         [10, 4, [this.platini.id], [this.zidane.id]],
-        [10, 4, [this.buffon.id], [this.maldini.id]],
+        [10, 0, [this.buffon.id], [this.maldini.id]],
         [0, 10, [this.buffon.id], [this.maldini.id]],
         [10, 9, [this.pele.id], [this.buffon.id]],
         [10, 5, [this.pele.id], [this.beckenbauer.id]],

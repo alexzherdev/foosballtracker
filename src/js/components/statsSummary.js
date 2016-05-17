@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { formatPercentage } from './utils';
+
 
 export default class StatsSummary extends React.Component {
   constructor(props) {
@@ -23,7 +25,7 @@ export default class StatsSummary extends React.Component {
               </tr>
               <tr>
                 <td>Best win rate</td>
-                <td>{stats.bestWinRate.name} ({stats.bestWinRate.rate * 100}%)</td>
+                <td>{stats.bestWinRate.name} ({formatPercentage(stats.bestWinRate.rate)})</td>
               </tr>
             </tbody>
           </table>
