@@ -43,4 +43,18 @@ describe('Stats controller', () => {
         });
     });
   });
+
+  describe('team', function() {
+    it('returns team stats', function(done) {
+      request(app)
+        .get(`/stats/${this.france.id}`)
+        .end((err, res) => {
+          let body = res.body;
+          expect(body.team).toBeDefined();
+          expect(body.scores).toBeDefined();
+          expect(body.stats).toBeDefined();
+          done();
+        });
+    });
+  })
 });
