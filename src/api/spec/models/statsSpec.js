@@ -16,13 +16,20 @@ const setupMatches = require('../support/setupMatches');
 
 
 describe('Stats', function() {
+
   beforeEach(function(done) {
     setupMatches.call(this).then(done);
   });
 
   describe('getSummary', function() {
+    let stats;
+
+    beforeEach(function() {
+      stats = Stats.getSummary();
+    });
+
     it('returns overall stats', function(done) {
-      Stats.getSummary().then(({ overall }) => {
+      stats.then(({ overall }) => {
         expect(overall.matchesPlayed).toEqual(11);
         expect(overall.bestWinRate.rate).toEqual(1);
         expect(overall.bestWinRate.name).toEqual(this.teamPele.get('name'));
@@ -31,7 +38,7 @@ describe('Stats', function() {
     });
 
     it('returns 2v2 stats', function(done) {
-      Stats.getSummary().then(({ twovtwo }) => {
+      stats.then(({ twovtwo }) => {
         expect(twovtwo.matchesPlayed).toEqual(4);
         expect(twovtwo.bestWinRate.rate).toEqual(1);
         expect(twovtwo.bestWinRate.name).toEqual(this.brazil.get('name'));
@@ -40,7 +47,7 @@ describe('Stats', function() {
     });
 
     it('returns 1v1 stats', function(done) {
-      Stats.getSummary().then(({ onevone }) => {
+      stats.then(({ onevone }) => {
         expect(onevone.matchesPlayed).toEqual(7);
         expect(onevone.bestWinRate.rate).toEqual(1);
         expect(onevone.bestWinRate.name).toEqual(this.teamPele.get('name'));
@@ -50,8 +57,13 @@ describe('Stats', function() {
   });
 
   describe('getAll', function() {
+    let stats;
+    beforeEach(function() {
+      stats = Stats.getAll();
+    });
+
     it('returns 2v2 stats', function(done) {
-      Stats.getAll().then(({ twovtwo }) => {
+      stats.then(({ twovtwo }) => {
         let france = _.find(twovtwo, { id: this.france.id });
         expect(france.goals_for).toEqual(13);
         expect(france.goals_against).toEqual(31);
@@ -70,7 +82,7 @@ describe('Stats', function() {
     });
 
     it('returns 1v1 stats', function(done) {
-      Stats.getAll().then(({ onevone }) => {
+      stats.then(({ onevone }) => {
         let platini = _.find(onevone, { id: this.teamPlatini.id });
         expect(platini.goals_for).toEqual(20);
         expect(platini.goals_against).toEqual(5);
@@ -84,6 +96,45 @@ describe('Stats', function() {
         expect(maldini.goals_difference).toEqual(0);
         expect(maldini.clean_sheets).toEqual(1);
         expect(maldini.failed_to_score).toEqual(1);
+        done();
+      });
+    });
+  });
+
+  describe('getForTeam', function() {
+    let stats;
+
+    beforeEach(function() {
+      stats = Stats.getForTeam(this.france.id);
+    });
+
+    it('returns the team', function(done) {
+      stats.then(({ team }) => {
+        expect(team.get('name')).toEqual(this.france.get('name'));
+        done();
+      });
+    });
+
+    it('returns the recent matches', function(done) {
+      stats.then(({ scores }) => {
+        let json = scores.toJSON();
+        expect(json.length).toEqual(4);
+        json.forEach((j) => {
+          expect([j.team1_id, j.team2_id]).toContain(this.france.id);
+        });
+        done();
+      });
+    });
+
+    it('returns the team\'s stats', function(done) {
+      stats.then(({ stats }) => {
+        expect(stats.goals_for).toEqual(13);
+        expect(stats.goals_against).toEqual(31);
+        expect(stats.goals_difference).toEqual(-18);
+        expect(stats.name).toEqual(this.france.get('name'));
+        expect(stats.id).toEqual(this.france.id);
+        expect(stats.clean_sheets).toEqual(0);
+        expect(stats.failed_to_score).toEqual(1);
         done();
       });
     });
