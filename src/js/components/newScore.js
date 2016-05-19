@@ -77,7 +77,6 @@ export default class NewScore extends React.Component {
           <div className="row row-eq-height">
             <div className="col-md-4">
               <PlayerPicker players={this.props.players}
-                playerId={this.state.team1[0]}
                 onPlayerSelect={this.onT1P1Select.bind(this)} />
               <PlayerPicker players={this.props.players}
                 onPlayerSelect={this.onT1P2Select.bind(this)} />
