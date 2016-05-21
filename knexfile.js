@@ -1,33 +1,35 @@
 'use strict';
 
-let secrets = require('./secrets');
 
-module.exports = {
-  development: {
-    client: 'mysql',
-    connection: Object.assign({
-      database: 'foosball',
-      timezone: 'UTC'
-    }, secrets.development)
-  },
+if (process.env.NODE_ENV !== 'staging') {
+  const secrets = require('./secrets');
 
-  test: {
-    client: 'mysql',
-    connection: Object.assign({
-      database: 'foosball_test',
-      timezone: 'UTC'
-    }, secrets.test)
-  },
-
-  staging: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL,
-    pool: {
-      min: 2,
-      max: 10
+  module.exports = {
+    development: {
+      client: 'mysql',
+      connection: Object.assign({
+        database: 'foosball',
+        timezone: 'UTC'
+      }, secrets.development)
     },
-    migrations: {
-      tableName: 'knex_migrations'
+
+    test: {
+      client: 'mysql',
+      connection: Object.assign({
+        database: 'foosball_test',
+        timezone: 'UTC'
+      }, secrets.test)
     }
-  }
-};
+  };
+} else {
+  module.exports = {
+    staging: {
+      client: 'mysql',
+      connection: process.env.DATABASE_URL,
+      migrations: {
+        tableName: 'knex_migrations'
+      }
+    }
+  };
+}
+

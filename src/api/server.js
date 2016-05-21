@@ -4,6 +4,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path')
 
 const config = require('../../config');
 const players = require('./controllers/players');
@@ -16,17 +17,17 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use('/players', players);
-app.use('/matches', matches);
-app.use('/stats', stats);
-app.use('/teams', teams);
+app.use('/api/players', players);
+app.use('/api/matches', matches);
+app.use('/api/stats', stats);
+app.use('/api/teams', teams);
 
-app.listen(config.apiPort, () => {
-  console.log(`Listening on port ${config.apiPort}`);
+app.use(express.static(__dirname + '/../../dist'));
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname + '/../index.html'));
 });
-
-if (process.env.NODE_ENV === 'staging') {
-  app.use(express.static(__dirname + '/../../dist'));
-}
+app.listen(config.port, () => {
+  console.log(`Listening on port ${config.port}`);
+});
 
 module.exports = app;

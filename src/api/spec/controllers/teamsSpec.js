@@ -16,7 +16,7 @@ describe('Teams controller', function() {
 
     it('returns all teams', function(done) {
       request(app)
-        .get('/teams')
+        .get('/api/teams')
         .end((err, res) => {
           let body = res.body;
           expect(body.length).toEqual(11);
