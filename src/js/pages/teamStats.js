@@ -51,7 +51,13 @@ export default class TeamStats extends React.Component {
   }
 
   getH2HTeams() {
-    return _.reject(this.state.teams, (t) => t.id === this.teamId);
+    let thisTeam = _.find(this.state.teams, { id: this.teamId });
+    return _.chain(this.state.teams)
+      .reject((t) => {
+        return t.id === this.teamId || t.players.count !== thisTeam.players.count;
+      })
+      .sortBy('name')
+      .value();
   }
 
   onH2HTeamSelect(id) {

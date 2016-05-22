@@ -18,6 +18,10 @@ const Team = db.Model.extend({
     return this.fetch({ withRelated: [{ players: function(r) { r.count('* as count'); }}]});
   }
 }, {
+  fetchAll() {
+    return this.forge().orderBy('id').fetchAll({ withRelated: [{ players: function(r) { r.groupBy('team_id').count('* as count'); }}]});
+  },
+
   findOrCreateForPlayerIds(playerIds) {
     let q = this.query();
     return q.innerJoin('players_teams', 'teams.id', 'players_teams.team_id')
