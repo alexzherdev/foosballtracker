@@ -10,7 +10,17 @@ export default class StatsSummary extends React.Component {
 
   render() {
     let stats = this.props.stats;
+
     if (stats) {
+      let winRateRow;
+      if (stats.bestWinRate) {
+        winRateRow = (
+          <tr>
+            <td>Best win rate</td>
+            <td>{stats.bestWinRate.name} ({formatPercentage(stats.bestWinRate.rate)})</td>
+          </tr>
+        );
+      }
       return (
         <div className="stats-summary">
           <table className="table">
@@ -23,10 +33,7 @@ export default class StatsSummary extends React.Component {
                 <td>Matches played daily on avg</td>
                 <td>{stats.avgMatchesDaily || 'never played'}</td>
               </tr>
-              <tr>
-                <td>Best win rate</td>
-                <td>{stats.bestWinRate.name} ({formatPercentage(stats.bestWinRate.rate)})</td>
-              </tr>
+              {winRateRow}
             </tbody>
           </table>
         </div>

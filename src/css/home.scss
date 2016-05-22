@@ -1,22 +1,14 @@
 .home {
-  .nav-tabs {
-    padding-left: 15px;
-  }
+  .stats-summary {
+    .table {
+      width: 50%;
 
-  .tab-content {
-    padding: 15px;
-
-    .stats-summary {
-      .table {
+      td {
         width: 50%;
+      }
 
-        td {
-          width: 50%;
-        }
-
-        tr:first-child td {
-          border: 0;
-        }
+      tr:first-child td {
+        border: 0;
       }
     }
   }
