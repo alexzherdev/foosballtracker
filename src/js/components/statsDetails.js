@@ -30,30 +30,36 @@ export default class StatsDetails extends React.Component {
       );
     };
     if (stats) {
-      return (
-        <div>
-          <table className="table table-condensed">
-            <thead>
-              <tr>
-                <th>Rank</th>
-                <th>Team</th>
-                <th>Played</th>
-                <th>Won</th>
-                <th>Lost</th>
-                <th>Win Rate</th>
-                <th>Scored</th>
-                <th>Conceded</th>
-                <th>Goal Difference</th>
-                <th>Clean Sheets</th>
-                <th>Failed to Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stats.map((s, i) => row(s, i + 1))}
-            </tbody>
-          </table>
-        </div>
-      );
+      if (stats.length) {
+        return (
+          <div>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Team</th>
+                  <th>Played</th>
+                  <th>Won</th>
+                  <th>Lost</th>
+                  <th>Win Rate</th>
+                  <th>Scored</th>
+                  <th>Conceded</th>
+                  <th>Goal Difference</th>
+                  <th>Clean Sheets</th>
+                  <th>Failed to Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                {stats.map((s, i) => row(s, i + 1))}
+              </tbody>
+            </table>
+          </div>
+        );
+      } else {
+        return (
+          <div className="alert alert-info">No matches played just yet. Time to step up to the table!</div>
+        );
+      }
     } else {
       return (
         <div>Loading...</div>

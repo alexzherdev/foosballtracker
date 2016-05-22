@@ -89,7 +89,7 @@ let _getBestWinRate = (matchType) => {
       } else {
         return b.rate - a.rate;
       }
-    })[0];
+    })[0] || null;
   });
 };
 
