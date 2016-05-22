@@ -4,6 +4,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const compression = require('compression');
 const path = require('path')
 
 const config = require('../../config');
@@ -16,6 +17,7 @@ const teams = require('./controllers/teams');
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+app.use(compression());
 
 app.use('/api/players', players);
 app.use('/api/matches', matches);

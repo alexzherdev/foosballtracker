@@ -25,6 +25,7 @@
     "bookshelf": "^0.9.5",
     "bootstrap": "^3.3.6",
     "classnames": "^2.2.5",
+    "compression": "^1.6.2",
     "cors": "^2.7.1",
     "express": "^4.13.4",
     "flux": "^2.1.1",
