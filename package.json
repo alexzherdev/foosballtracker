@@ -9,7 +9,7 @@
     "test": "NODE_ENV=test ./tests.sh",
     "test-api": "NODE_ENV=test babel-node ./node_modules/isparta/lib/cli cover src/api/spec/support/run.js --dir ./coverage/api/ -x secrets.js",
     "test-api-no-cov": "NODE_ENV=test babel-node src/api/spec/support/run.js",
-    "postinstall": "gulp default"
+    "postinstall": "gulp"
   },
   "author": "Alex Zherdev",
   "license": "MIT",
