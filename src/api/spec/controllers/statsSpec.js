@@ -20,7 +20,7 @@ describe('Stats controller', () => {
   describe('index', () => {
     it('returns detailed stats', (done) => {
       request(app)
-        .get('/stats')
+        .get('/api/stats')
         .end((err, res) => {
           let body = res.body;
           expect(body.twovtwo).toBeDefined();
@@ -33,7 +33,7 @@ describe('Stats controller', () => {
   describe('summary', () => {
     it('returns stats summary', (done) => {
       request(app)
-        .get('/stats/summary')
+        .get('/api/stats/summary')
         .end((err, res) => {
           let body = res.body;
           expect(body.overall).toBeDefined();
@@ -47,7 +47,7 @@ describe('Stats controller', () => {
   describe('team', function() {
     it('returns team stats', function(done) {
       request(app)
-        .get(`/stats/${this.france.id}`)
+        .get(`/api/stats/${this.france.id}`)
         .end((err, res) => {
           let body = res.body;
           expect(body.team).toBeDefined();

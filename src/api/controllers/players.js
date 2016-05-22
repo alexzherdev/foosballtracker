@@ -6,7 +6,7 @@ const express = require('express'),
   router = express.Router();
 
 router.get('/', (req, res, next) => {
-  Player.fetchAll().then((players) => {
+  Player.forge().orderBy('id').fetchAll().then((players) => {
     res.send(players);
   }).catch(next);
 });

@@ -28,7 +28,7 @@ let handleResponse = (err, res, callback) => {
 
 let ApiClient = {
   baseUrl() {
-    return `${config.host}:${config.apiPort}`;
+    return `${config.url}/api`;
   },
 
   createPlayer(name) {

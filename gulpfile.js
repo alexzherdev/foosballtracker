@@ -11,6 +11,8 @@ var eslint = require('gulp-eslint');
 var sass = require('gulp-sass');
 var merge = require('merge-stream');
 var gutil = require('gulp-util');
+var htmlreplace = require('gulp-html-replace');
+var argv = require('yargs').argv;
 
 
 var config = {
@@ -51,6 +53,12 @@ var lint = function(files) {
 
 gulp.task('html', function() {
   gulp.src(config.paths.html)
+    .pipe(htmlreplace({
+      'setup-env': {
+        src: process.env.NODE_ENV || 'development',
+        tpl: '<script type="text/javascript">window.env="%s";</script>'
+      }
+    }))
     .pipe(gulp.dest(config.paths.dist));
 });
 
@@ -77,7 +85,9 @@ gulp.task('js', function() {
     fullPaths: true
   });
 
-  var watcher = watchify(bundler);
+  if (argv.watch) {
+    var watcher = watchify(bundler);
+  }
 
   function bundle(changedFiles) {
     var bundleStream = bundler
@@ -104,5 +114,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task('default', ['html', 'lint', 'js', 'sass'], function() {
-  gulp.watch(config.paths.scss, ['sass']);
+  if (argv.watch) {
+    gulp.watch(config.paths.scss, ['sass']);
+  }
 });

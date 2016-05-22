@@ -4,20 +4,32 @@
 const config = {
   development: {
     host: 'http://localhost',
-    uiPort: 8989,
-    apiPort: 7878
+    port: 8989
   },
 
   test: {
     host: 'http://localhost',
-    apiPort: 7879
+    port: 8988
   },
 
   staging: {
-
+    host: 'https://ftstaging.herokuapp.com',
+    port: process.env.PORT || 3000
   }
-}
+};
 
-let env = process.env.NODE_ENV || 'development';
+['development', 'test'].forEach((e) => {
+  config[e].url = `${config[e].host}:${config[e].port}`;
+});
+
+config.staging.url = config.staging.host;
+
+let env;
+if (typeof window !== 'undefined') {
+  env = window.env;
+} else if (typeof process !== 'undefined') {
+  env = process.env.NODE_ENV;
+}
+env = env || 'development';
 
 module.exports = config[env];

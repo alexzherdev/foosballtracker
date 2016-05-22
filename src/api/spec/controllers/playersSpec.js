@@ -20,7 +20,7 @@ describe('Players controller', () => {
 
     it('returns all players', (done) => {
       request(app)
-        .get('/players')
+        .get('/api/players')
         .end((err, res) => {
           let body = res.body;
           expect(body[0].id).toEqual(1);
@@ -35,7 +35,7 @@ describe('Players controller', () => {
   describe('create', () => {
     it('creates a player', (done) => {
       request(app)
-        .post('/players')
+        .post('/api/players')
         .send({ name: 'Lev Yashin' })
         .end((err, res) => {
           new Players().fetch().then((players) => {

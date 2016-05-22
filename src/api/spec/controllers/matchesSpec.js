@@ -25,7 +25,7 @@ describe('Matches controller', function() {
   describe('index', () => {
     it('returns all matches', (done) => {
       request(app)
-        .get('/matches')
+        .get('/api/matches')
         .end((err, res) => {
           let body = res.body;
           expect(body.length).toEqual(11);
@@ -42,7 +42,7 @@ describe('Matches controller', function() {
   describe('create', function() {
     it('creates a match', function(done) {
       request(app)
-        .post('/matches')
+        .post('/api/matches')
         .send({ team1: [this.zidane.id, this.platini.id], team2: [this.pele.id, this.ronaldo.id], team1_score: 10, team2_score: 1 })
         .end((err, res) => {
           Match.forge().orderBy('id', 'desc').fetchAll().then((matches) => {
@@ -60,7 +60,7 @@ describe('Matches controller', function() {
   describe('h2h', function() {
     it('returns matches between two teams', function(done) {
       request(app)
-        .get('/matches/h2h')
+        .get('/api/matches/h2h')
         .query({ team1_id: this.italy.id, team2_id: this.france.id })
         .end((err, res) => {
           let body = res.body;
