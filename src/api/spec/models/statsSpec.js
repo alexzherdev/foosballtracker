@@ -139,4 +139,40 @@ describe('Stats', function() {
       });
     });
   });
+
+  describe('getPlayersStats', function() {
+    let stats;
+
+    beforeEach(function() {
+      stats = Stats.getPlayersStats();
+    });
+
+    it('returns stats ordered by win rate', function(done) {
+      stats.then((s) => {
+        expect(s[0]).toEqual({
+          id: 5,
+          name: 'Pele',
+          played: 4,
+          won: 4,
+          lost: 0,
+          win_rate: '1.0000'
+        });
+        done();
+      });
+    });
+
+    it('includes players with no matches played', function(done) {
+      stats.then((s) => {
+        let kahn = _.find(s, { win_rate: 'n/a' });
+        expect(kahn).toEqual(jasmine.objectContaining({
+          name: 'Oliver Kahn',
+          played: 0,
+          won: 0,
+          lost: 0,
+          win_rate: 'n/a'
+        }));
+        done();
+      });
+    });
+  });
 });

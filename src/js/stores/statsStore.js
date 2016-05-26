@@ -8,6 +8,7 @@ const CHANGE_EVENT = 'change';
 const _store = {
   summary: null,
   details: null,
+  playersStats: [],
   teamStats: {},
   h2hMatches: []
 };
@@ -25,24 +26,12 @@ let StatsStore = Object.assign({}, EventEmitter.prototype, {
     return _store.teamStats[teamId];
   },
 
-  setSummary(summary) {
-    _store.summary = summary;
-  },
-
-  setDetails(details) {
-    _store.details = details;
-  },
-
-  setTeamStats(stats) {
-    _store.teamStats[stats.team.id] = stats;
+  getPlayersStats() {
+    return _store.playersStats;
   },
 
   getH2HMatches() {
     return _store.h2hMatches;
-  },
-
-  setH2HMatches(matches) {
-    _store.h2hMatches = matches;
   },
 
   addChangeListener(cb) {
@@ -61,19 +50,23 @@ let StatsStore = Object.assign({}, EventEmitter.prototype, {
 let callback = ({ action: { actionType, data }}) => {
   switch (actionType) {
     case StatsConstants.LOAD_STATS_SUMMARY_RESPONSE:
-      StatsStore.setSummary(data);
+      _store.summary = data;
       StatsStore.emitChange();
       break;
     case StatsConstants.LOAD_STATS_RESPONSE:
-      StatsStore.setDetails(data);
+      _store.details = data;
       StatsStore.emitChange();
       break;
     case StatsConstants.LOAD_TEAM_STATS_RESPONSE:
-      StatsStore.setTeamStats(data);
+      _store.teamStats[data.team.id] = data;
       StatsStore.emitChange();
       break;
     case StatsConstants.LOAD_H2H_MATCHES_RESPONSE:
-      StatsStore.setH2HMatches(data);
+      _store.h2hMatches = data;
+      StatsStore.emitChange();
+      break;
+    case StatsConstants.LOAD_PLAYERS_STATS_RESPONSE:
+      _store.playersStats = data;
       StatsStore.emitChange();
       break;
   }

@@ -1,40 +1,42 @@
 import React from 'react';
 
 import AddPlayer from '../components/addPlayer';
-import PlayerStore from '../stores/playerStore';
-import PlayerActions from '../actions/playerActions';
+import PlayerList from '../components/playerList';
+import StatsStore from '../stores/statsStore';
+import StatsActions from '../actions/statsActions';
 
 
 export default class Players extends React.Component {
   state = {
-    players: PlayerStore.getPlayers()
+    players: StatsStore.getPlayersStats()
   };
 
   constructor() {
     super();
-    this.onPlayersChange = this.onPlayersChange.bind(this);
+    this.onStatsChange = this.onStatsChange.bind(this);
   }
 
   componentDidMount() {
-    PlayerStore.addChangeListener(this.onPlayersChange);
-    PlayerActions.loadPlayers();
+    StatsStore.addChangeListener(this.onStatsChange);
+    StatsActions.loadPlayersStats();
   }
 
   componentWillUnmount() {
-    PlayerStore.removeChangeListener(this.onPlayersChange);
+    StatsStore.removeChangeListener(this.onStatsChange);
   }
 
-  onPlayersChange() {
-    this.setState({ players: PlayerStore.getPlayers() });
+  onStatsChange() {
+    this.setState({ players: StatsStore.getPlayersStats() });
   }
 
   render() {
     return (
-      <div>
-        <ul>
-          {this.state.players.map((p) => (<li key={p.name}>{p.name}</li>))}
-        </ul>
-        <AddPlayer />
+      <div className="players">
+        <div className="container-fluid">
+          <h4>Players</h4>
+          <PlayerList players={this.state.players} />
+          <AddPlayer />
+        </div>
       </div>
     );
   }

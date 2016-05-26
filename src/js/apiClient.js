@@ -50,6 +50,15 @@ let ApiClient = {
       });
   },
 
+  getPlayersStats() {
+    request.get(`${this.baseUrl()}/stats/players`)
+      .end((err, res) => {
+        handleResponse(err, res, (err, res) => {
+          StatsActions.loadPlayersStatsResponse(res);
+        });
+      });
+  },
+
   getScores() {
     request.get(`${this.baseUrl()}/matches`)
       .end((err, res) => {

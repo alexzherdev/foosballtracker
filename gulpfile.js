@@ -30,7 +30,8 @@ var config = {
       './src/js/pages/',
       './src/js/stores/'
     ],
-    js: './src/js/**/*.js',
+    js: './src/**/*.js',
+    apiJs: './src/api/**/*.js',
     mainJs: './src/js/main.js',
     css: [
       'node_modules/bootstrap/dist/css/bootstrap.min.css',
@@ -116,5 +117,6 @@ gulp.task('lint', function() {
 gulp.task('default', ['html', 'lint', 'js', 'sass'], function() {
   if (argv.watch) {
     gulp.watch(config.paths.scss, ['sass']);
+    gulp.watch(config.paths.apiJs, ['lint']);
   }
 });

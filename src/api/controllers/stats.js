@@ -17,6 +17,12 @@ router.get('/summary', (req, res, next) => {
   }).catch(next);
 });
 
+router.get('/players', (req, res, next) => {
+  Stats.getPlayersStats().then((stats) => {
+    res.send(stats);
+  }).catch(next);
+});
+
 router.get('/:teamId', (req, res, next) => {
   Stats.getForTeam(+req.params.teamId).then((stats) => {
     res.send(stats);
