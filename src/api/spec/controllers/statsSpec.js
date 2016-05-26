@@ -56,5 +56,19 @@ describe('Stats controller', () => {
           done();
         });
     });
-  })
+  });
+
+  describe('players', function() {
+    it('returns players stats', function(done) {
+      request(app)
+        .get('/api/stats/players')
+        .end((err, res) => {
+          let body = res.body;
+          expect(body[0]).toBeDefined();
+          expect(body[0].id).toBeDefined();
+          expect(body[0].played).toBeDefined();
+          done();
+        });
+    });
+  });
 });

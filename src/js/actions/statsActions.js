@@ -34,6 +34,16 @@ const StatsActions = {
     FTDispatcher.handleServerAction({ actionType: StatsConstants.LOAD_TEAM_STATS_RESPONSE, data: response.body });
   },
 
+  loadPlayersStats() {
+    FTDispatcher.handleViewAction({ actionType: StatsConstants.LOAD_PLAYERS_STATS });
+
+    ApiClient.getPlayersStats();
+  },
+
+  loadPlayersStatsResponse(response) {
+    FTDispatcher.handleServerAction({ actionType: StatsConstants.LOAD_PLAYERS_STATS_RESPONSE, data: response.body });
+  },
+
   loadH2HMatches(team1Id, team2Id) {
     FTDispatcher.handleViewAction({ actionType: StatsConstants.LOAD_H2H_MATCHES })
 

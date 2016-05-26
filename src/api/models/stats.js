@@ -117,8 +117,8 @@ let _getMatchTypeDetailStats = (matchType) => {
 
 let _getTeamStats = (teamId) => {
   let extractCurrentStreak = (form) => {
-    let match;
-    if (match = form.match(/^W+/)) {
+    let match = form.match(/^W+/)
+    if (match) {
       return { wins: match[0].length };
     } else {
       match = form.match(/^L+/);
@@ -173,6 +173,45 @@ let _getRecentMatches = (teamId) => {
   }).fetch();
 };
 
+let _getPlayerAgg = (matchType) => {
+  return knex
+    .from('players as p')
+    .innerJoin('players_teams as pt', function() {
+      this.on('p.id', '=', 'pt.player_id');
+    })
+    .innerJoin('teams as t', function() {
+      this.on('pt.team_id', '=', 't.id');
+    })
+    .leftOuterJoin('matches as m', function() {
+      this.on(knex.raw('(m.team1_id = t.id or m.team2_id = t.id)'));
+      if (matchType) {
+        this.andOn(knex.raw('match_type = ?', [matchType]));
+      }
+    })
+    .groupByRaw('p.id')
+    .select([
+      'p.id',
+      'p.name',
+      knex.raw('coalesce(count(m.id), 0) as played'),
+      knex.raw('coalesce(SUM(IF(t.id = team1_id, team1_score > team2_score, team2_score > team1_score)), 0) as won'),
+      knex.raw('coalesce(SUM(IF(t.id = team1_id, team1_score < team2_score, team2_score < team1_score)), 0) as lost')
+    ]).toString();
+};
+
+let _getPlayerWinLossAgg = (matchType) => {
+  return knex
+    .select([
+      'id',
+      'name',
+      'played',
+      'won',
+      'lost',
+      knex.raw('IF(won + lost = 0, \'n/a\', won / (won + lost)) as win_rate')
+    ])
+    .from(knex.raw(`(${_getPlayerAgg(matchType)}) agg`))
+    .orderBy('won', 'desc');
+};
+
 
 const Stats = {
   getSummary() {
@@ -197,7 +236,12 @@ const Stats = {
       _getRecentMatches(teamId),
       _getTeamStats(teamId)
     ]).then(([team, scores, stats]) => ({ team, scores, stats }));
+  },
+
+  getPlayersStats(matchType) {
+    return _getPlayerWinLossAgg(matchType);
   }
 };
+
 
 module.exports = Stats;

@@ -33,7 +33,7 @@ export default class StatsDetails extends React.Component {
       if (stats.length) {
         return (
           <div>
-            <table className="table table-condensed">
+            <table className="table table-condensed table-striped">
               <thead>
                 <tr>
                   <th>Rank</th>
