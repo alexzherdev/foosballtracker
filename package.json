@@ -5,11 +5,11 @@
   "main": "index.js",
   "repository": "alexzherdev/foosballtracker",
   "scripts": {
-    "start": "babel-node ./src/api/server",
+    "start": "./start.sh",
     "test": "NODE_ENV=test ./tests.sh",
     "test-api": "NODE_ENV=test babel-node ./node_modules/isparta/lib/cli cover src/api/spec/support/run.js --dir ./coverage/api/ -x secrets.js",
     "test-api-no-cov": "NODE_ENV=test babel-node src/api/spec/support/run.js",
-    "postinstall": "gulp"
+    "postinstall": "./node_modules/.bin/babel -d ./build/api ./src/api -s && gulp build"
   },
   "author": "Alex Zherdev",
   "license": "MIT",
@@ -54,6 +54,7 @@
     "eslint-plugin-react": "^5.1.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
+    "gulp-clean-css": "^2.0.8",
     "gulp-concat": "^2.6.0",
     "gulp-eslint": "^2.0.0",
     "gulp-html-replace": "^1.5.5",
@@ -84,6 +85,7 @@
     "rewire-webpack": "^1.0.1",
     "sinon": "^1.17.3",
     "supertest": "^1.2.0",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0",
     "webpack": "^1.13.0",

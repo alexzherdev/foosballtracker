@@ -5,6 +5,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var browserify = require('browserify');
 var babelify = require('babelify');
 var watchify = require('watchify');
+var uglify = require('gulp-uglify');
+var buffer = require('vinyl-buffer');
 var source = require('vinyl-source-stream');
 var concat = require('gulp-concat');
 var eslint = require('gulp-eslint');
@@ -12,6 +14,7 @@ var sass = require('gulp-sass');
 var merge = require('merge-stream');
 var gutil = require('gulp-util');
 var htmlreplace = require('gulp-html-replace');
+var cleanCss = require('gulp-clean-css');
 var argv = require('yargs').argv;
 
 
@@ -41,7 +44,7 @@ var config = {
     scss: [
       'src/css/*.scss'
     ],
-    dist: './dist'
+    dist: process.env.NODE_ENV === 'production' ? './build' : './dist'
   }
 };
 
@@ -63,7 +66,7 @@ gulp.task('html', function() {
     .pipe(gulp.dest(config.paths.dist));
 });
 
-gulp.task('sass', function () {
+gulp.task('sass', function() {
   merge(
     gulp.src(config.paths.css)
       .pipe(sourcemaps.init()),
@@ -73,6 +76,17 @@ gulp.task('sass', function () {
   )
     .pipe(concat('application.css'))
     .pipe(sourcemaps.write())
+    .pipe(gulp.dest(config.paths.dist + '/css'));
+});
+
+gulp.task('sass-production', function() {
+  merge(
+    gulp.src(config.paths.css),
+    gulp.src(config.paths.scss)
+      .pipe(sass().on('error', sass.logError))
+  )
+    .pipe(concat('application.css'))
+    .pipe(cleanCss())
     .pipe(gulp.dest(config.paths.dist + '/css'));
 });
 
@@ -119,4 +133,24 @@ gulp.task('default', ['html', 'lint', 'js', 'sass'], function() {
     gulp.watch(config.paths.scss, ['sass']);
     gulp.watch(config.paths.apiJs, ['lint']);
   }
+});
+
+gulp.task('build', ['html', 'sass-production'], function() {
+  var bundler = browserify({
+    paths: config.paths.jsDirs,
+    entries: [config.paths.mainJs],
+    debug: false,
+    cache: {},
+    packageCache: {},
+    fullPaths: true
+  });
+
+  return bundler
+    .transform(babelify)
+    .bundle()
+    .on('error', console.error.bind(console))
+    .pipe(source('application.js'))
+    .pipe(buffer())
+    .pipe(uglify())
+    .pipe(gulp.dest(config.paths.dist + '/scripts'));
 });

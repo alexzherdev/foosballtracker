@@ -4,17 +4,20 @@
 const config = {
   development: {
     host: 'http://localhost',
-    port: 8989
+    port: 8989,
+    assetsDir: 'dist'
   },
 
   test: {
     host: 'http://localhost',
-    port: 8988
+    port: 8988,
+    assetsDir: 'dist'
   },
 
   production: {
     host: 'https://ftstaging.herokuapp.com',
-    port: process.env.PORT || 3000
+    port: process.env.PORT || 3000,
+    assetsDir: 'build'
   }
 };
 
