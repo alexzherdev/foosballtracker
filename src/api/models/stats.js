@@ -76,6 +76,7 @@ let _getWinLossAgg = (selects, matchType) => {
     )}) agg`))
       .whereRaw('won + lost > 0')
       .orderBy('won', 'desc')
+      .orderBy('name', 'asc')
 };
 
 let _getBestWinRate = (matchType) => {
@@ -209,7 +210,8 @@ let _getPlayerWinLossAgg = (matchType) => {
       knex.raw('IF(won + lost = 0, \'n/a\', won / (won + lost)) as win_rate')
     ])
     .from(knex.raw(`(${_getPlayerAgg(matchType)}) agg`))
-    .orderBy('won', 'desc');
+    .orderBy('won', 'desc')
+    .orderBy('name', 'asc');
 };
 
 
