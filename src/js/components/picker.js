@@ -30,8 +30,8 @@ export default class Picker extends React.Component {
   }
 
   render() {
-    let items = this.props.items.map((i) => {
-      return (<li key={i.id}><a href="#" data-id={i.id} onClick={this.onItemSelect}>{i.name}</a></li>);
+    let items = [{ id: null, name: this.props.placeholder }, ...this.props.items].map((i) => {
+      return <li key={i.id}><a href="#" data-id={i.id} onClick={this.onItemSelect}>{i.name}</a></li>;
     });
 
     return (
