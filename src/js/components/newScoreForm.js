@@ -11,12 +11,21 @@ export default class NewScore extends React.Component {
     players: React.PropTypes.array.isRequired
   };
 
-  state = {
-    team1Score: '',
-    team2Score: '',
-    team1: [],
-    team2: []
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      team1Score: '',
+      team2Score: '',
+      team1: [],
+      team2: [],
+      players: []
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ players: nextProps.players.slice(0) });
+  }
 
   onScore1Change(event) {
     this.onScoreChange('team1Score', event.target.value);
@@ -63,6 +72,7 @@ export default class NewScore extends React.Component {
   }
 
   render() {
+    const players = _.reject(this.props.players, (p) => [..._.compact(this.state.team1), ..._.compact(this.state.team2)].includes(p.id));
     return (
       <div className="col-md-6 new-score">
         <h4>New Score</h4>
@@ -80,9 +90,9 @@ export default class NewScore extends React.Component {
           </div>
           <div className="row row-eq-height">
             <div className="col-md-4">
-              <PlayerPicker players={this.props.players}
+              <PlayerPicker players={players}
                 onPlayerSelect={this.onT1P1Select.bind(this)} />
-              <PlayerPicker players={this.props.players}
+              <PlayerPicker players={players}
                 onPlayerSelect={this.onT1P2Select.bind(this)} />
             </div>
             <div className="form-group form-group-lg col-md-4">
@@ -99,9 +109,9 @@ export default class NewScore extends React.Component {
                 className="form-control text-center" />
             </div>
             <div className="col-md-4">
-              <PlayerPicker players={this.props.players}
+              <PlayerPicker players={players}
                 onPlayerSelect={this.onT2P1Select.bind(this)} />
-              <PlayerPicker players={this.props.players}
+              <PlayerPicker players={players}
                 onPlayerSelect={this.onT2P2Select.bind(this)} />
             </div>
           </div>
