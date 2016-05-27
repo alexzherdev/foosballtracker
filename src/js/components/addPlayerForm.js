@@ -1,7 +1,5 @@
 import React from 'react';
 
-import PlayerActions from '../actions/playerActions';
-
 
 export default class AddPlayerForm extends React.Component {
   state = {
