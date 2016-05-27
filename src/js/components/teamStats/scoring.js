@@ -4,6 +4,10 @@ import { formatDecimal } from '../utils';
 
 
 export default class TeamScoring extends React.Component {
+  static propTypes = {
+    stats: React.PropTypes.object.isRequired
+  };
+
   render() {
     const stats = this.props.stats;
 

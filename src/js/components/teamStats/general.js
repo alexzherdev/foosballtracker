@@ -4,6 +4,10 @@ import { formatPercentage } from '../utils';
 
 
 export default class TeamGeneral extends React.Component {
+  static propTypes = {
+    stats: React.PropTypes.object.isRequired
+  };
+
   render() {
     const stats = this.props.stats;
 

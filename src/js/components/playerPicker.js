@@ -9,4 +9,9 @@ const PlayerPicker = ({players, onPlayerSelect}) =>
     onItemSelect={onPlayerSelect}
     placeholder="Select" />;
 
+PlayerPicker.propTypes = {
+  players: React.PropTypes.array.isRequired,
+  onPlayerSelect: React.PropTypes.func.isRequired
+}
+
 export default PlayerPicker;

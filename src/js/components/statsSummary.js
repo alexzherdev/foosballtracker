@@ -4,6 +4,10 @@ import { formatPercentage } from './utils';
 
 
 export default class StatsSummary extends React.Component {
+  static propTypes = {
+    stats: React.PropTypes.object
+  };
+
   constructor(props) {
     super(props);
   }

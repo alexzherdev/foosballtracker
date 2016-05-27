@@ -7,6 +7,10 @@ import ScoreActions from '../actions/scoreActions';
 
 
 export default class NewScore extends React.Component {
+  static propTypes = {
+    players: React.PropTypes.array.isRequired
+  };
+
   state = {
     team1Score: '',
     team2Score: '',

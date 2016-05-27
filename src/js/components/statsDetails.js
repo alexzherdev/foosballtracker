@@ -5,6 +5,10 @@ import { formatPercentage } from './utils';
 
 
 export default class StatsDetails extends React.Component {
+  static propTypes = {
+    stats: React.PropTypes.array
+  };
+
   constructor(props) {
     super(props);
   }

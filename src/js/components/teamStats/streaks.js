@@ -2,6 +2,10 @@ import React from 'react';
 
 
 export default class TeamStreaks extends React.Component {
+  static propTypes = {
+    stats: React.PropTypes.object.isRequired
+  };
+
   render() {
     const stats = this.props.stats;
 

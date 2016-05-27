@@ -6,6 +6,14 @@ import { formatPercentage } from '../utils';
 
 
 export default class TeamHeadToHead extends React.Component {
+  static propTypes = {
+    stats: React.PropTypes.object.isRequired,
+    h2hStats: React.PropTypes.object,
+    h2hMatches: React.PropTypes.array.isRequired,
+    teams: React.PropTypes.array.isRequired,
+    onTeamSelect: React.PropTypes.func.isRequired
+  };
+
   render() {
     const stats = this.props.stats;
     const teamId = stats.team.id;
