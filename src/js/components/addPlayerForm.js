@@ -3,7 +3,7 @@ import React from 'react';
 import PlayerActions from '../actions/playerActions';
 
 
-export default class AddPlayer extends React.Component {
+export default class AddPlayerForm extends React.Component {
   state = {
     name: ''
   };
@@ -13,7 +13,7 @@ export default class AddPlayer extends React.Component {
   }
 
   onSubmit() {
-    PlayerActions.createPlayer(this.state.name);
+    this.props.onPlayerCreate(this.state.name);
     this.setState({ name: '' });
   }
 

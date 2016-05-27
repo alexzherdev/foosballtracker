@@ -22,6 +22,8 @@ const PlayerActions = {
 
   createPlayerResponse(response) {
     FTDispatcher.handleServerAction({ actionType: PlayerConstants.CREATE_PLAYER_RESPONSE, data: response.body });
+
+    ApiClient.getPlayersStats();
   }
 };
 

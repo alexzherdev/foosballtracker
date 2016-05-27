@@ -46,6 +46,7 @@ let callback = ({ action: { actionType, data }}) => {
       break;
   }
 };
+
 FTDispatcher.register(callback);
 
 export default PlayerStore;
