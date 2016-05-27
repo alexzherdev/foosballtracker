@@ -12,7 +12,7 @@ const config = {
     port: 8988
   },
 
-  staging: {
+  production: {
     host: 'https://ftstaging.herokuapp.com',
     port: process.env.PORT || 3000
   }
@@ -22,7 +22,7 @@ const config = {
   config[e].url = `${config[e].host}:${config[e].port}`;
 });
 
-config.staging.url = config.staging.host;
+config.production.url = config.production.host;
 
 let env;
 if (typeof window !== 'undefined') {

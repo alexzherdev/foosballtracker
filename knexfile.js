@@ -1,7 +1,7 @@
 'use strict';
 
 
-if (process.env.NODE_ENV !== 'staging') {
+if (process.env.NODE_ENV !== 'production') {
   const secrets = require('./secrets');
 
   module.exports = {
@@ -23,7 +23,7 @@ if (process.env.NODE_ENV !== 'staging') {
   };
 } else {
   module.exports = {
-    staging: {
+    production: {
       client: 'mysql',
       connection: process.env.DATABASE_URL,
       migrations: {
