@@ -2,14 +2,9 @@
 
 
 const request = require('supertest');
-const Promise = require('bluebird');
 
-require('../../models/player');
-const Players = require('../../models/players');
-const db = require('../../db');
 const app = require('../../server');
 
-const Player = db.model('Player');
 const setupMatches = require('../support/setupMatches');
 
 describe('Stats controller', () => {

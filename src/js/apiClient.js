@@ -1,7 +1,6 @@
 import request from 'superagent';
 import toastr from 'toastr';
 
-import FTDispatcher from './dispatchers/dispatcher';
 import PlayerActions from './actions/playerActions';
 import ScoreActions from './actions/scoreActions';
 import StatsActions from './actions/statsActions';

@@ -14,11 +14,11 @@ export default class NewScore extends React.Component {
     team2: []
   };
 
-  onScore1Change(event, attr) {
+  onScore1Change(event) {
     this.onScoreChange('team1Score', event.target.value);
   }
 
-  onScore2Change(event, attr) {
+  onScore2Change(event) {
     this.onScoreChange('team2Score', event.target.value);
   }
 

@@ -1,17 +1,12 @@
 import React from 'react';
 
-import _ from 'lodash';
-
 import Picker from './picker';
 
 
-export default class TeamPicker extends React.Component {
-  render() {
-    return (
-      <Picker className="team-picker"
-        items={this.props.teams}
-        onItemSelect={this.props.onTeamSelect}
-        placeholder="Pick a team" />
-    );
-  }
-}
+const TeamPicker = ({teams, onTeamSelect}) =>
+  <Picker className="team-picker"
+    items={teams}
+    onItemSelect={onTeamSelect}
+    placeholder="Pick a team" />;
+
+export default TeamPicker;

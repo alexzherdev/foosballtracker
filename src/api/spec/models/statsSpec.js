@@ -1,16 +1,8 @@
 'use strict';
 
-const Promise = require('bluebird');
 const _ = require('lodash');
 
-const db = require('../../db');
-require('../../models/player');
-const Player = db.model('Player');
-const Players = require('../../models/players');
 const Stats = require('../../models/stats');
-
-require('../../models/team');
-const Team = db.model('Team');
 
 const setupMatches = require('../support/setupMatches');
 

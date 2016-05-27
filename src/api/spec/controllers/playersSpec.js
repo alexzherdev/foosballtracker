@@ -37,7 +37,7 @@ describe('Players controller', () => {
       request(app)
         .post('/api/players')
         .send({ name: 'Lev Yashin' })
-        .end((err, res) => {
+        .end(() => {
           new Players().fetch().then((players) => {
             expect(players.length).toEqual(1);
             expect(players.at(0).get('name')).toEqual('Lev Yashin');

@@ -2,18 +2,10 @@
 
 
 const request = require('supertest');
-const Promise = require('bluebird');
-const _ = require('lodash');
 
-require('../../models/player');
-require('../../models/team');
-const Players = require('../../models/players');
 const Match = require('../../models/match');
-const db = require('../../db');
-const app = require('../../server');
 
-const Player = db.model('Player');
-const Team = db.model('Team');
+const app = require('../../server');
 
 const setupMatches = require('../support/setupMatches');
 
@@ -44,7 +36,7 @@ describe('Matches controller', function() {
       request(app)
         .post('/api/matches')
         .send({ team1: [this.zidane.id, this.platini.id], team2: [this.pele.id, this.ronaldo.id], team1_score: 10, team2_score: 1 })
-        .end((err, res) => {
+        .end(() => {
           Match.forge().orderBy('id', 'desc').fetchAll().then((matches) => {
             let json = matches.toJSON();
             expect(json.length).toEqual(12);

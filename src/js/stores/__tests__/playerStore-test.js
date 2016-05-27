@@ -4,12 +4,11 @@ let rewire = require('rewire');
 let PlayerConstants = require('../../constants/playerConstants').default;
 
 describe('PlayerStore', () => {
-  let PlayerStore, FTDispatcher, callback;
+  let PlayerStore, callback;
 
   beforeEach(() => {
     let playerStoreRew = rewire('../playerStore');
     PlayerStore = playerStoreRew.default;
-    FTDispatcher = require('../../dispatchers/dispatcher').default;
 
     callback = playerStoreRew.__get__('callback');
   });

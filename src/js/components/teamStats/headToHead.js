@@ -1,7 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import moment from 'moment';
-import classnames from 'classnames';
 
 import TeamPicker from '../teamPicker';
 import { formatPercentage } from '../utils';

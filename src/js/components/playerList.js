@@ -21,20 +21,18 @@ const PlayerList = ({players}) => {
   );
 
   return (
-
-        <table className="table table-condensed table-striped">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Played</th>
-              <th>Won</th>
-              <th>Lost</th>
-              <th>Win Rate</th>
-            </tr>
-          </thead>
-          {tbody}
-        </table>
-
+    <table className="table table-condensed table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Played</th>
+          <th>Won</th>
+          <th>Lost</th>
+          <th>Win Rate</th>
+        </tr>
+      </thead>
+      {tbody}
+    </table>
   );
 };
 

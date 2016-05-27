@@ -1,9 +1,9 @@
 {
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
 
   "rules": {
-    "no-unused-vars": 0,
-    "no-console": 0
+    "no-unused-vars": 2,
+    "no-console": 1
   },
 
   "env": {
@@ -24,5 +24,9 @@
       "jsx": true,
       "classes": true
     }
-  }
+  },
+
+  "plugins": [
+    "react"
+  ]
 }
