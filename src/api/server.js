@@ -24,9 +24,9 @@ app.use('/api/matches', matches);
 app.use('/api/stats', stats);
 app.use('/api/teams', teams);
 
-app.use(express.static(__dirname + '/../../dist'));
+app.use(express.static(`${__dirname}/../../${config.assetsDir}`));
 app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname + '/../../dist/index.html'));
+  res.sendFile(path.resolve(`${__dirname}/../../${config.assetsDir}/index.html`));
 });
 app.listen(config.port, () => {
   console.log(`Listening on port ${config.port}`);
