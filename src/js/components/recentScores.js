@@ -1,27 +1,23 @@
 import React from 'react';
 
 
-export default class RecentScores extends React.Component {
-  static propTypes = {
-    scores: React.PropTypes.array.isRequired
-  };
+const RecentScores = ({scores}) => {
+  let items = scores.map((s) => (
+    <li key={s.id}>{s.team1_score}:{s.team2_score}</li>
+  ));
 
-  constructor() {
-    super();
-  }
+  return (
+    <div>
+      <h4>Recent Scores</h4>
+      <ul>
+        {items}
+      </ul>
+    </div>
+  );
+};
 
-  render() {
-    let items = this.props.scores.map((s) => (
-      <li key={s.id}>{s.team1_score}:{s.team2_score}</li>
-    ));
+RecentScores.propTypes = {
+  scores: React.PropTypes.array.isRequired
+};
 
-    return (
-      <div>
-        <h4>Recent Scores</h4>
-        <ul>
-          {items}
-        </ul>
-      </div>
-    );
-  }
-}
+export default RecentScores;
