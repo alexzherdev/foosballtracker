@@ -1,13 +1,7 @@
 'use strict';
 
 
-const Promise = require('bluebird');
-
-const db = require('../../db');
 const Match = require('../../models/match');
-
-require('../../models/team');
-const Team = db.model('Team');
 
 const setupMatches = require('../support/setupMatches');
 
