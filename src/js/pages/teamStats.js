@@ -15,6 +15,10 @@ import TeamHeadToHead from '../components/teamStats/headToHead';
 
 
 export default class TeamStats extends React.Component {
+  static propTypes = {
+    params: React.PropTypes.object.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.onStatsChange = this.onStatsChange.bind(this);

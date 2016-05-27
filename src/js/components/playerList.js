@@ -36,4 +36,8 @@ const PlayerList = ({players}) => {
   );
 };
 
+PlayerList.propTypes = {
+  players: React.PropTypes.array.isRequired
+};
+
 export default PlayerList;

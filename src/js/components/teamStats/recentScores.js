@@ -4,6 +4,11 @@ import classnames from 'classnames';
 
 
 export default class TeamRecentScores extends React.Component {
+  static propTypes = {
+    scores: React.PropTypes.array.isRequired,
+    team: React.PropTypes.object.isRequired
+  };
+
   render() {
     const scores = this.props.scores;
 

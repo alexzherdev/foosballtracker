@@ -4,6 +4,13 @@ import _ from 'lodash';
 
 
 export default class Picker extends React.Component {
+  static propTypes = {
+    items: React.PropTypes.array.isRequired,
+    onItemSelect: React.PropTypes.func.isRequired,
+    placeholder: React.PropTypes.string,
+    className: React.PropTypes.string
+  };
+
   constructor(props) {
     super(props);
     this.state = { name: this.getDisplayName() };

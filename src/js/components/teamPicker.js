@@ -9,4 +9,9 @@ const TeamPicker = ({teams, onTeamSelect}) =>
     onItemSelect={onTeamSelect}
     placeholder="Pick a team" />;
 
+TeamPicker.propTypes = {
+  teams: React.PropTypes.array.isRequired,
+  onTeamSelect: React.PropTypes.func.isRequired
+};
+
 export default TeamPicker;

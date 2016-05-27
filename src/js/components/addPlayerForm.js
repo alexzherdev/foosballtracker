@@ -2,6 +2,10 @@ import React from 'react';
 
 
 export default class AddPlayerForm extends React.Component {
+  static propTypes = {
+    onPlayerCreate: React.PropTypes.func.isRequired
+  };
+
   state = {
     name: ''
   };

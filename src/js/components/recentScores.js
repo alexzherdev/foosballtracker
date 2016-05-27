@@ -2,6 +2,10 @@ import React from 'react';
 
 
 export default class RecentScores extends React.Component {
+  static propTypes = {
+    scores: React.PropTypes.array.isRequired
+  };
+
   constructor() {
     super();
   }

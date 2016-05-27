@@ -3,7 +3,8 @@
 
   "rules": {
     "no-unused-vars": 2,
-    "no-console": 1
+    "no-console": 1,
+    "react/prefer-stateless-function": 1
   },
 
   "env": {
