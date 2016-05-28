@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NewScore from '../components/newScore';
+import NewScoreForm from '../components/newScoreForm';
 import RecentScores from '../components/recentScores';
 import PlayerStore from '../stores/playerStore';
 import PlayerActions from '../actions/playerActions';
@@ -44,7 +44,7 @@ export default class Scores extends React.Component {
     return (
       <div className="container-fluid">
         <RecentScores scores={this.state.scores} />
-        <NewScore players={this.state.players} />
+        <NewScoreForm players={this.state.players} />
       </div>
     );
   }
