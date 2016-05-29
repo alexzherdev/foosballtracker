@@ -121,6 +121,16 @@ let ApiClient = {
           StatsActions.loadH2HMatchesResponse(res);
         });
       });
+  },
+
+  getScorePage(page, pageSize) {
+    request.get(`${this.baseUrl()}/matches`)
+      .query({ page, page_size: pageSize })
+      .end((err, res) => {
+        handleResponse(err, res, (err, res) => {
+          ScoreActions.loadScorePageResponse(res);
+        });
+      });
   }
 };
 

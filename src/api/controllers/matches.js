@@ -6,8 +6,16 @@ const express = require('express'),
   router = express.Router();
 
 router.get('/', (req, res, next) => {
-  Match.fetchAll().then((matches) => {
-    res.send(matches);
+  let fetch;
+  const { page, page_size } = req.query;
+
+  if (page) {
+    fetch = Match.fetchPage(page, page_size);
+  } else {
+    fetch = Match.fetchAllWithTeams();
+  }
+  fetch.then((matches) => {
+    res.send({ items: matches.toJSON(), pagination: matches.pagination });
   }).catch(next);
 });
 
@@ -18,7 +26,7 @@ router.get('/h2h', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  let body = req.body;
+  const body = req.body;
   Match.createForTeams(
     body.team1_score, body.team2_score,
     body.team1, body.team2

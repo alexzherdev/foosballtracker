@@ -41,6 +41,28 @@ const Match = db.Model.extend({
 }, {
   get winPoints() { return WIN_POINTS; },
 
+  _queryWithTeams() {
+    return this.query((qb) =>
+      qb
+        .innerJoin('teams as t1', function() {
+          this.on('matches.team1_id', 't1.id');
+        })
+        .innerJoin('teams as t2', function() {
+          this.on('matches.team2_id', 't2.id');
+        })
+        .orderBy('matches.id', 'desc')
+        .select('matches.id', 'matches.created_at', 'matches.team1_score', 'matches.team2_score',
+          'matches.team1_id', 'matches.team2_id', 'matches.match_type', 't1.name as team1_name', 't2.name as team2_name'));
+  },
+
+  fetchAllWithTeams() {
+    return this._queryWithTeams().fetchAll();
+  },
+
+  fetchPage(page, pageSize) {
+    return this._queryWithTeams().fetchPage({ page, pageSize });
+  },
+
   createForTeams(team1Score, team2Score, team1Ids, team2Ids) {
     let team1, team2;
     if (team1Ids.length === 1) {
@@ -59,8 +81,7 @@ const Match = db.Model.extend({
         team1_id: teams[0].id, team2_id: teams[1].id,
         team1_score: team1Score, team2_score: team2Score
       }).save().then((match) => {
-        let id = match.id;
-        return match.clear().set('id', id).fetch();
+        return this._queryWithTeams().where('matches.id', match.id).fetch();
       });
     });
   },

@@ -6,7 +6,7 @@ import PlayerPicker from './playerPicker';
 import ScoreActions from '../actions/scoreActions';
 
 
-export default class NewScore extends React.Component {
+export default class NewScoreForm extends React.Component {
   static propTypes = {
     players: React.PropTypes.array.isRequired
   };
@@ -74,50 +74,54 @@ export default class NewScore extends React.Component {
   render() {
     const players = _.reject(this.props.players, (p) => [..._.compact(this.state.team1), ..._.compact(this.state.team2)].includes(p.id));
     return (
-      <div className="col-md-6 new-score">
-        <h4>New Score</h4>
-        <div className="form-inline clearfix text-center">
-          <div className="row">
-            <div className="form-group col-md-4">
-              <h4>Team 1</h4>
-            </div>
-            <div className="form-group col-md-4">
-              <h4>VS</h4>
-            </div>
-            <div className="form-group col-md-4">
-              <h4>Team 2</h4>
-            </div>
-          </div>
-          <div className="row row-eq-height">
-            <div className="col-md-4">
-              <PlayerPicker players={players}
-                onPlayerSelect={this.onT1P1Select.bind(this)} />
-              <PlayerPicker players={players}
-                onPlayerSelect={this.onT1P2Select.bind(this)} />
-            </div>
-            <div className="form-group form-group-lg col-md-4">
-              <input
-                type="text"
-                value={this.state.team1Score}
-                onChange={this.onScore1Change.bind(this)}
-                className="form-control text-center" />
-              <span className="colon">:</span>
-              <input
-                type="text"
-                value={this.state.team2Score}
-                onChange={this.onScore2Change.bind(this)}
-                className="form-control text-center" />
-            </div>
-            <div className="col-md-4">
-              <PlayerPicker players={players}
-                onPlayerSelect={this.onT2P1Select.bind(this)} />
-              <PlayerPicker players={players}
-                onPlayerSelect={this.onT2P2Select.bind(this)} />
-            </div>
-          </div>
+      <div className="new-score panel panel-default">
+        <div className="panel-heading">
+          <h4>New Score</h4>
         </div>
-        <div className="text-center buttons">
-          <button onClick={this.onSubmit.bind(this)} className="btn btn-primary btn-lg">Save</button>
+        <div className="panel-body">
+          <div className="form-inline clearfix text-center">
+            <div className="row">
+              <div className="form-group col-md-4">
+                <h4>Team 1</h4>
+              </div>
+              <div className="form-group col-md-4">
+                <h4>VS</h4>
+              </div>
+              <div className="form-group col-md-4">
+                <h4>Team 2</h4>
+              </div>
+            </div>
+            <div className="row row-eq-height">
+              <div className="col-md-4">
+                <PlayerPicker players={players}
+                  onPlayerSelect={this.onT1P1Select.bind(this)} />
+                <PlayerPicker players={players}
+                  onPlayerSelect={this.onT1P2Select.bind(this)} />
+              </div>
+              <div className="form-group form-group-lg col-md-4">
+                <input
+                  type="text"
+                  value={this.state.team1Score}
+                  onChange={this.onScore1Change.bind(this)}
+                  className="form-control text-center" />
+                <span className="dash">-</span>
+                <input
+                  type="text"
+                  value={this.state.team2Score}
+                  onChange={this.onScore2Change.bind(this)}
+                  className="form-control text-center" />
+              </div>
+              <div className="col-md-4">
+                <PlayerPicker players={players}
+                  onPlayerSelect={this.onT2P1Select.bind(this)} />
+                <PlayerPicker players={players}
+                  onPlayerSelect={this.onT2P2Select.bind(this)} />
+              </div>
+            </div>
+          </div>
+          <div className="text-center buttons">
+            <button onClick={this.onSubmit.bind(this)} className="btn btn-primary">Save</button>
+          </div>
         </div>
       </div>
     );

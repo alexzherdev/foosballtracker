@@ -19,13 +19,25 @@ describe('Matches controller', function() {
       request(app)
         .get('/api/matches')
         .end((err, res) => {
+          let items = res.body.items;
+          expect(items.length).toEqual(11);
+          expect(items[0].id).toBeDefined();
+          expect(items[0].team1_id).toBeDefined();
+          expect(items[0].team1_score).toBeDefined();
+          expect(items[0].team2_id).toBeDefined();
+          expect(items[0].team2_score).toBeDefined();
+          done();
+        });
+    });
+
+    fit('returns a page of matches', (done) => {
+      request(app)
+        .get('/api/matches')
+        .query({ page: 3, page_size: 4 })
+        .end((err, res) => {
           let body = res.body;
-          expect(body.length).toEqual(11);
-          expect(body[0].id).toBeDefined();
-          expect(body[0].team1_id).toBeDefined();
-          expect(body[0].team1_score).toBeDefined();
-          expect(body[0].team2_id).toBeDefined();
-          expect(body[0].team2_score).toBeDefined();
+          expect(body.items.length).toEqual(3);
+          expect(body.pagination).toEqual({ page: 3, pageSize: 4, rowCount: 11, pageCount: 3 });
           done();
         });
     });
