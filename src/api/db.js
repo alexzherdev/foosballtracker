@@ -11,5 +11,6 @@ if (env === 'development' || process.env.DEBUG) {
 
 const bookshelf = require('bookshelf')(knex);
 bookshelf.plugin('registry');
+bookshelf.plugin('pagination');
 
 module.exports = bookshelf;

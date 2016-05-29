@@ -170,7 +170,7 @@ let _getRecentMatches = (teamId) => {
       })
       .orderBy('m.created_at', 'desc')
       .limit(RECENT_MATCHES_COUNT)
-      .select('m.created_at', 'm.team1_score', 'm.team2_score', 'm.team1_id', 'm.team2_id', 'm.match_type', 'teams.name')
+      .select('m.id', 'm.created_at', 'm.team1_score', 'm.team2_score', 'm.team1_id', 'm.team2_id', 'm.match_type', 'teams.name')
   }).fetch();
 };
 

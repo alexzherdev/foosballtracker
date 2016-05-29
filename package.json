@@ -7,8 +7,8 @@
   "scripts": {
     "start": "./start.sh",
     "test": "NODE_ENV=test ./tests.sh",
-    "test-api": "NODE_ENV=test babel-node ./node_modules/isparta/lib/cli cover src/api/spec/support/run.js --dir ./coverage/api/ -x secrets.js",
-    "test-api-no-cov": "NODE_ENV=test babel-node src/api/spec/support/run.js",
+    "test-api": "NODE_ENV=test babel-node src/api/spec/support/run.js",
+    "test-api:cov": "NODE_ENV=test babel-node ./node_modules/isparta/lib/cli cover src/api/spec/support/run.js --dir ./coverage/api/ -x secrets.js",
     "postinstall": "./node_modules/.bin/babel -d ./build/api ./src/api -s && gulp build"
   },
   "author": "Alex Zherdev",

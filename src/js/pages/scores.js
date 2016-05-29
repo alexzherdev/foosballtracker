@@ -10,7 +10,7 @@ import ScoreActions from '../actions/scoreActions';
 
 export default class Scores extends React.Component {
   state = {
-    scores: ScoreStore.getAllScores(),
+    scores: [],
     players: PlayerStore.getPlayers()
   };
 
@@ -18,12 +18,13 @@ export default class Scores extends React.Component {
     super();
     this.onScoresChange = this.onScoresChange.bind(this);
     this.onPlayersChange = this.onPlayersChange.bind(this);
+    this.loadNextPage = this.loadNextPage.bind(this);
   }
 
   componentDidMount() {
     ScoreStore.addChangeListener(this.onScoresChange);
     PlayerStore.addChangeListener(this.onPlayersChange);
-    ScoreActions.loadScores();
+    ScoreActions.loadScorePage(1);
     PlayerActions.loadPlayers();
   }
 
@@ -33,18 +34,37 @@ export default class Scores extends React.Component {
   }
 
   onScoresChange() {
-    this.setState({ scores: ScoreStore.getAllScores() });
+    this.setState({ scores: ScoreStore.getPaginated() });
   }
 
   onPlayersChange() {
     this.setState({ players: PlayerStore.getPlayers() });
   }
 
+  loadNextPage() {
+    ScoreActions.loadScorePage(ScoreStore.getLastPageNum() + 1);
+  }
+
   render() {
     return (
-      <div className="container-fluid">
-        <RecentScores scores={this.state.scores} />
-        <NewScoreForm players={this.state.players} />
+      <div className="scores">
+        <div className="col-md-6">
+          <div className="panel panel-default">
+            <div className="panel-heading">
+              <h4>Score History</h4>
+            </div>
+            <RecentScores scores={this.state.scores} />
+            <div className="panel-footer text-right">
+              <button
+                className="btn btn-default btn-sm"
+                onClick={this.loadNextPage}
+                disabled={!ScoreStore.hasMorePages()}>More scores</button>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-6">
+          <NewScoreForm players={this.state.players} />
+        </div>
       </div>
     );
   }

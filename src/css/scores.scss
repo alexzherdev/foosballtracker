@@ -12,21 +12,41 @@
   }
 
   .row:first-child {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
   }
 
   .player-picker:first-child {
     margin-bottom: 1rem;
   }
 
-  .colon {
+  .dash {
     font-size: 2.5rem;
     font-weight: bold;
     margin: 0 1rem;
     vertical-align: middle;
   }
+}
 
-  .buttons {
-    margin-top: 3rem;
+.scores {
+  td {
+    text-align: center;
+
+    .score-container {
+      position: relative;
+
+      .team-1 {
+        position: absolute;
+        text-align: right;
+        right: 8px;
+        width: 200px;
+      }
+
+      .team-2 {
+        position: absolute;
+        text-align: left;
+        left: 8px;
+        width: 200px;
+      }
+    }
   }
 }
