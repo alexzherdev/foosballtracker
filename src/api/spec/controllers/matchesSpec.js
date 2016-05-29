@@ -30,7 +30,7 @@ describe('Matches controller', function() {
         });
     });
 
-    fit('returns a page of matches', (done) => {
+    it('returns a page of matches', (done) => {
       request(app)
         .get('/api/matches')
         .query({ page: 3, page_size: 4 })

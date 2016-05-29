@@ -1,5 +1,12 @@
 #!/bin/bash
 
+echo "Linting..."
+gulp lint
+
+if [ $? -ne 0 ]; then
+  exit $?
+fi;
+
 echo "Running UI tests..."
 ./node_modules/karma/bin/karma start &
 uiPid=$!

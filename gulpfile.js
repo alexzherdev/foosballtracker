@@ -52,7 +52,8 @@ var lint = function(files) {
   gutil.log('linting', files);
   return gulp.src(files)
     .pipe(eslint({ config: 'eslint.config.json' }))
-    .pipe(eslint.format());
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 };
 
 gulp.task('html', function() {

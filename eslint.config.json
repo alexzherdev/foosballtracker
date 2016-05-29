@@ -1,10 +1,11 @@
 {
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:jasmine/recommended"],
 
   "rules": {
     "no-unused-vars": 2,
     "no-console": 1,
-    "react/prefer-stateless-function": 1
+    "react/prefer-stateless-function": 1,
+    "jasmine/no-spec-dupes": [1, "branch"]
   },
 
   "env": {
@@ -28,6 +29,7 @@
   },
 
   "plugins": [
-    "react"
+    "react",
+    "jasmine"
   ]
 }
