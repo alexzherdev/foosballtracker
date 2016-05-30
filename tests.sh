@@ -3,8 +3,9 @@
 echo "Linting..."
 gulp lint
 
-if [ $? -ne 0 ]; then
-  exit $?
+lintCode=$?
+if [ $lintCode -ne 0 ]; then
+  exit $lintCode
 fi;
 
 echo "Running UI tests..."
