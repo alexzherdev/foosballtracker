@@ -58,7 +58,7 @@ export default class Scores extends React.Component {
               <button
                 className="btn btn-default btn-sm"
                 onClick={this.loadNextPage}
-                disabled={!ScoreStore.hasMorePages()}>More scores</button>
+                disabled={!ScoreStore.hasMorePages()}>More scores <span className="glyphicon glyphicon-menu-down"></span></button>
             </div>
           </div>
         </div>

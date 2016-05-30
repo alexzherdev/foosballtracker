@@ -41,6 +41,9 @@ var config = {
       'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
       'node_modules/toastr/build/toastr.min.css'
     ],
+    fonts: [
+      'node_modules/bootstrap/dist/fonts/*'
+    ],
     scss: [
       'src/css/*.scss'
     ],
@@ -65,6 +68,11 @@ gulp.task('html', function() {
       }
     }))
     .pipe(gulp.dest(config.paths.dist));
+});
+
+gulp.task('fonts', function() {
+  gulp.src(config.paths.fonts)
+    .pipe(gulp.dest(config.paths.dist + '/fonts'));
 });
 
 gulp.task('sass', function() {
