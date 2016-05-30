@@ -5,6 +5,8 @@ const Promise = require('bluebird');
 const Player = require('../../models/player');
 const Team = require('../../models/team');
 
+const setupMatches = require('../support/setupMatches');
+
 
 describe('Team', () => {
   describe('findOrCreateForPlayerIds', () => {
@@ -70,6 +72,49 @@ describe('Team', () => {
               done();
             });
           });
+      });
+    });
+  });
+
+  describe('fetchOpponents', function() {
+    beforeEach(function(done) {
+      setupMatches.call(this).then(done);
+    });
+
+    const verifyOpponents = (opps, length, expectedOpps) => {
+      const json = opps.toJSON();
+      expect(json.length).toEqual(length);
+      for (let i = 0; i < expectedOpps.length; i++) {
+        expect(json[i]).toEqual(jasmine.objectContaining(expectedOpps[i]));
+      }
+    };
+
+    it('fetches opponents for 1v1', function(done) {
+      this.teamBuffon.fetchOpponents().then((opps) => {
+        verifyOpponents(opps, 8, [
+          { name: 'Paolo Maldini', played: 2 },
+          { name: 'Pele', played: 1 },
+          { name: 'Franz Beckenbauer', played: 0 }
+        ]);
+        done();
+      });
+    });
+
+    it('fetches opponents for 2v2', function(done) {
+      this.france.fetchOpponents().then((opps) => {
+        verifyOpponents(opps, 3, [
+          { name: 'Gianluigi Buffon & Paolo Maldini', played: 3 },
+          { name: 'Pele & Ronaldo', played: 1 },
+          { name: 'Franz Beckenbauer & Oliver Kahn', played: 0 }
+        ]);
+        done();
+      });
+    });
+
+    it('fetches opponents for a player without 1v1 matches', function(done) {
+      this.teamKahn.fetchOpponents().then((opps) => {
+        verifyOpponents(opps, 8, [{ name: 'Franz Beckenbauer', played: 0 }]);
+        done();
       });
     });
   });

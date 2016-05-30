@@ -113,6 +113,15 @@ let ApiClient = {
       });
   },
 
+  getH2HOpponents(teamId) {
+    request.get(`${this.baseUrl()}/teams/${teamId}/opponents`)
+      .end((err, res) => {
+        handleResponse(err, res, (err, res) => {
+          TeamActions.loadH2HOpponentsResponse(res);
+        });
+      });
+  },
+
   getH2HMatches(team1Id, team2Id) {
     request.get(`${this.baseUrl()}/matches/h2h`)
       .query({ team1_id: team1Id, team2_id: team2Id })

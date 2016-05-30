@@ -7,7 +7,8 @@ const PlayerPicker = ({players, onPlayerSelect}) =>
   <Picker className="player-picker"
     items={players}
     onItemSelect={onPlayerSelect}
-    placeholder="Select" />;
+    placeholder="Select"
+    usePlaceholderItem={true} />;
 
 PlayerPicker.propTypes = {
   players: React.PropTypes.array.isRequired,

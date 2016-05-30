@@ -50,10 +50,13 @@ var config = {
 
 var lint = function(files) {
   gutil.log('linting', files);
-  return gulp.src(files)
+  const chain = gulp.src(files)
     .pipe(eslint({ config: 'eslint.config.json' }))
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
+    .pipe(eslint.format());
+  if (!argv.watch) {
+    chain.pipe(eslint.failAfterError());
+  }
+  return chain;
 };
 
 gulp.task('html', function() {

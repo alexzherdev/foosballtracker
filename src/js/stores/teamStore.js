@@ -6,15 +6,18 @@ import TeamConstants from '../constants/teamConstants';
 
 const CHANGE_EVENT = 'change';
 
-const _store = [];
+const _store = {
+  all: [],
+  h2hOpponents: []
+};
 
 let TeamStore = Object.assign({}, EventEmitter.prototype, {
   getTeams() {
-    return _store;
+    return _store.all;
   },
 
-  setTeams(teams) {
-    _store.splice(0, _store.length, ...teams);
+  getH2HOpponents() {
+    return _store.h2hOpponents;
   },
 
   addChangeListener(cb) {
@@ -33,7 +36,11 @@ let TeamStore = Object.assign({}, EventEmitter.prototype, {
 let callback = ({ action: { actionType, data }}) => {
   switch (actionType) {
     case TeamConstants.LOAD_TEAMS_RESPONSE:
-      TeamStore.setTeams(data);
+      _store.all.splice(0, _store.all.length, ...data);
+      TeamStore.emitChange();
+      break;
+    case TeamConstants.LOAD_H2H_OPPONENTS_RESPONSE:
+      _store.h2hOpponents.splice(0, _store.h2hOpponents.length, ...data);
       TeamStore.emitChange();
       break;
   }

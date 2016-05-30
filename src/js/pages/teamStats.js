@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import _ from 'lodash';
-
 import StatsStore from '../stores/statsStore';
 import StatsActions from '../actions/statsActions';
 import TeamActions from '../actions/teamActions';
@@ -26,7 +24,7 @@ export default class TeamStats extends React.Component {
     this.teamId = +this.props.params.teamId;
     this.state = {
       stats: StatsStore.getTeamStats(this.teamId),
-      teams: TeamStore.getTeams()
+      teams: []
     };
   }
 
@@ -34,7 +32,7 @@ export default class TeamStats extends React.Component {
     StatsStore.addChangeListener(this.onStatsChange);
     StatsActions.loadTeamStats(this.teamId);
     TeamStore.addChangeListener(this.onTeamsChange);
-    TeamActions.loadTeams();
+    TeamActions.loadH2HOpponents(this.teamId);
   }
 
   componentWillUnmount() {
@@ -51,17 +49,7 @@ export default class TeamStats extends React.Component {
   }
 
   onTeamsChange() {
-    this.setState({ teams: TeamStore.getTeams() });
-  }
-
-  getH2HTeams() {
-    let thisTeam = _.find(this.state.teams, { id: this.teamId });
-    return _.chain(this.state.teams)
-      .reject((t) => {
-        return t.id === this.teamId || t.players.count !== thisTeam.players.count;
-      })
-      .sortBy('name')
-      .value();
+    this.setState({ teams: TeamStore.getH2HOpponents() });
   }
 
   onH2HTeamSelect(id) {
@@ -93,7 +81,7 @@ export default class TeamStats extends React.Component {
         <div className="col-md-6">
           <TeamHeadToHead
             stats={stats}
-            teams={this.getH2HTeams()}
+            teams={this.state.teams}
             onTeamSelect={this.onH2HTeamSelect.bind(this)}
             h2hStats={this.state.h2hStats}
             h2hMatches={this.state.h2hMatches} />
