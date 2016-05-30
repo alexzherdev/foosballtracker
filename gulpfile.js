@@ -1,6 +1,7 @@
 "use strict";
 
 var gulp = require('gulp');
+var gulpif = require('gulp-if');
 var sourcemaps = require('gulp-sourcemaps');
 var browserify = require('browserify');
 var babelify = require('babelify');
@@ -34,7 +35,6 @@ var config = {
       './src/js/stores/'
     ],
     js: './src/**/*.js',
-    apiJs: './src/api/**/*.js',
     mainJs: './src/js/main.js',
     css: [
       'node_modules/bootstrap/dist/css/bootstrap.min.css',
@@ -50,13 +50,10 @@ var config = {
 
 var lint = function(files) {
   gutil.log('linting', files);
-  const chain = gulp.src(files)
+  return gulp.src(files)
     .pipe(eslint({ config: 'eslint.config.json' }))
-    .pipe(eslint.format());
-  if (!argv.watch) {
-    chain.pipe(eslint.failAfterError());
-  }
-  return chain;
+    .pipe(eslint.format())
+    .pipe(gulpif(!argv.watch, eslint.failAfterError()));
 };
 
 gulp.task('html', function() {
@@ -135,7 +132,7 @@ gulp.task('lint', function() {
 gulp.task('default', ['html', 'lint', 'js', 'sass'], function() {
   if (argv.watch) {
     gulp.watch(config.paths.scss, ['sass']);
-    gulp.watch(config.paths.apiJs, ['lint']);
+    gulp.watch(config.paths.js, ['lint']);
   }
 });
 
