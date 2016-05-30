@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 
 const db = require('../db');
 
@@ -15,16 +16,34 @@ const Team = db.Model.extend({
   },
 
   fetchWithPlayerCount() {
-    return this.fetch({ withRelated: [{ players: function(r) { r.count('* as count'); }}]});
+    return this.fetch({ withRelated: [{ players: (r) => r.count('* as count') }]});
+  },
+
+  fetchOpponents() {
+    const id = this.id;
+    return Team.query((qb) =>
+      qb.leftOuterJoin('matches as m', function() {
+        this.on(db.knex.raw('(m.team1_id = ? and teams.id = m.team2_id)', [id]))
+          .orOn(db.knex.raw('(m.team2_id = ? and teams.id = m.team1_id)', [id]));
+      })
+        .select(db.knex.raw('IFNULL(IF(team1_id = ?, team2_id, team1_id), teams.id) as opp_id', [id]), 'teams.*')
+        .countDistinct('m.id as played')
+        .groupBy('opp_id')
+        .orderBy('played', 'desc')
+        .orderBy('teams.name')
+    ).fetchAll({ withRelated: [{ players: (r) => r.groupBy('team_id').count('* as count') }]})
+      .then((teams) => {
+        const thisTeam = teams.remove({ id });
+        return new db.Collection(teams.reject((t) => t.related('players').at(0).get('count') !== thisTeam.related('players').at(0).get('count')));
+      });
   }
 }, {
   fetchAll() {
-    return this.forge().orderBy('id').fetchAll({ withRelated: [{ players: function(r) { r.groupBy('team_id').count('* as count'); }}]});
+    return this.forge().orderBy('id').fetchAll({ withRelated: [{ players: (r) => r.groupBy('team_id').count('* as count') }]});
   },
 
   findOrCreateForPlayerIds(playerIds) {
-    let q = this.query();
-    return q.innerJoin('players_teams', 'teams.id', 'players_teams.team_id')
+    return this.query().innerJoin('players_teams', 'teams.id', 'players_teams.team_id')
       .innerJoin('players', 'players_teams.player_id', 'players.id')
       .groupBy('teams.id')
       .having('ids', '=', playerIds.sort().join(','))

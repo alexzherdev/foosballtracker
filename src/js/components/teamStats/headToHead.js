@@ -112,7 +112,9 @@ const TeamHeadToHead = ({stats, teams, onTeamSelect, h2hStats, h2hMatches}) => {
         <h5 className="panel-title">Head to Head</h5>
       </div>
       <div className="panel-body">
-        <TeamPicker teams={teams} onTeamSelect={onTeamSelect} />
+        <TeamPicker teams={teams} onTeamSelect={onTeamSelect} getLabel={(team) => {
+          return team.played > 0 ? `${team.name} (${team.played})` : team.name;
+        }} />
       </div>
 
       { h2hStats ? h2h() : '' }

@@ -22,7 +22,7 @@ describe('Stats', function() {
 
     it('returns overall stats', function(done) {
       stats.then(({ overall }) => {
-        expect(overall.matchesPlayed).toEqual(11);
+        expect(overall.matchesPlayed).toEqual(12);
         expect(overall.bestWinRate.rate).toEqual(1);
         expect(overall.bestWinRate.name).toEqual(this.teamPele.get('name'));
         done();
@@ -31,9 +31,9 @@ describe('Stats', function() {
 
     it('returns 2v2 stats', function(done) {
       stats.then(({ twovtwo }) => {
-        expect(twovtwo.matchesPlayed).toEqual(4);
+        expect(twovtwo.matchesPlayed).toEqual(5);
         expect(twovtwo.bestWinRate.rate).toEqual(1);
-        expect(twovtwo.bestWinRate.name).toEqual(this.brazil.get('name'));
+        expect(twovtwo.bestWinRate.name).toEqual(this.germany.get('name'));
         done();
       });
     });
@@ -64,9 +64,9 @@ describe('Stats', function() {
         expect(france.failed_to_score).toEqual(1);
 
         let brazil = _.find(twovtwo, { id: this.brazil.id });
-        expect(brazil.goals_for).toEqual(10);
-        expect(brazil.goals_against).toEqual(0);
-        expect(brazil.goals_difference).toEqual(10);
+        expect(brazil.goals_for).toEqual(15);
+        expect(brazil.goals_against).toEqual(10);
+        expect(brazil.goals_difference).toEqual(5);
         expect(brazil.clean_sheets).toEqual(1);
         expect(brazil.failed_to_score).toEqual(0);
         done();
@@ -141,23 +141,22 @@ describe('Stats', function() {
 
     it('returns stats ordered by win rate', function(done) {
       stats.then((s) => {
-        expect(s[0]).toEqual({
-          id: 5,
+        expect(s[0]).toEqual(jasmine.objectContaining({
           name: 'Pele',
-          played: 4,
+          played: 5,
           won: 4,
-          lost: 0,
-          win_rate: '1.0000'
-        });
+          lost: 1,
+          win_rate: '0.8000'
+        }));
         done();
       });
     });
 
     it('includes players with no matches played', function(done) {
       stats.then((s) => {
-        let kahn = _.find(s, { win_rate: 'n/a' });
-        expect(kahn).toEqual(jasmine.objectContaining({
-          name: 'Oliver Kahn',
+        let noMatches = _.find(s, { win_rate: 'n/a' });
+        expect(noMatches).toEqual(jasmine.objectContaining({
+          name: 'No Matches',
           played: 0,
           won: 0,
           lost: 0,

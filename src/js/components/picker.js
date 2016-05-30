@@ -8,7 +8,9 @@ export default class Picker extends React.Component {
     items: React.PropTypes.array.isRequired,
     onItemSelect: React.PropTypes.func.isRequired,
     placeholder: React.PropTypes.string,
-    className: React.PropTypes.string
+    className: React.PropTypes.string,
+    getItemLabel: React.PropTypes.func,
+    usePlaceholderItem: React.PropTypes.bool
   };
 
   constructor(props) {
@@ -17,9 +19,17 @@ export default class Picker extends React.Component {
     this.onItemSelect = this.onItemSelect.bind(this);
   }
 
+  getLabel(item) {
+    if (this.props.getItemLabel) {
+      return this.props.getItemLabel(item);
+    } else {
+      return item.name;
+    }
+  }
+
   getDisplayName(id) {
     let item = _.find(this.props.items, { id });
-    return item ? item.name : this.props.placeholder;
+    return item ? this.getLabel(item) : this.props.placeholder;
   }
 
   onItemSelect(event) {
@@ -30,9 +40,19 @@ export default class Picker extends React.Component {
   }
 
   render() {
-    let items = [{ id: null, name: this.props.placeholder }, ...this.props.items].map((i) => {
-      return <li key={i.id}><a href="#" data-id={i.id} onClick={this.onItemSelect}>{i.name}</a></li>;
-    });
+    const renderItem = (item, index) => {
+      if (item.isHeader) {
+        return <li className="dropdown-header" key={`header-${index}`}>{item.name}</li>
+      } else {
+        return <li key={item.id}><a href="#" data-id={item.id} onClick={this.onItemSelect}>{this.getLabel(item)}</a></li>;
+      }
+    };
+
+    const items = [...this.props.items];
+    if (this.props.usePlaceholderItem) {
+      items.splice(0, 0, { id: null, name: this.props.placeholder });
+    }
+    const pickerItems = items.map(renderItem);
 
     return (
       <div className={`dropdown ${this.props.className}`}>
@@ -40,7 +60,7 @@ export default class Picker extends React.Component {
           {this.state.name} <span className="caret"></span>
         </button>
         <ul className="dropdown-menu">
-          {items}
+          {pickerItems}
         </ul>
       </div>
     );

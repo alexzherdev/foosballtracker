@@ -20,7 +20,7 @@ describe('Matches controller', function() {
         .get('/api/matches')
         .end((err, res) => {
           let items = res.body.items;
-          expect(items.length).toEqual(11);
+          expect(items.length).toEqual(12);
           expect(items[0].id).toBeDefined();
           expect(items[0].team1_id).toBeDefined();
           expect(items[0].team1_score).toBeDefined();
@@ -36,8 +36,8 @@ describe('Matches controller', function() {
         .query({ page: 3, page_size: 4 })
         .end((err, res) => {
           let body = res.body;
-          expect(body.items.length).toEqual(3);
-          expect(body.pagination).toEqual({ page: 3, pageSize: 4, rowCount: 11, pageCount: 3 });
+          expect(body.items.length).toEqual(4);
+          expect(body.pagination).toEqual({ page: 3, pageSize: 4, rowCount: 12, pageCount: 3 });
           done();
         });
     });
@@ -51,7 +51,7 @@ describe('Matches controller', function() {
         .end(() => {
           Match.forge().orderBy('id', 'desc').fetchAll().then((matches) => {
             let json = matches.toJSON();
-            expect(json.length).toEqual(12);
+            expect(json.length).toEqual(13);
             expect(json[0].match_type).toEqual('2v2');
             expect(json[0].team1_score).toEqual(10);
             expect(json[0].team2_score).toEqual(1);
