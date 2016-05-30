@@ -137,14 +137,14 @@ gulp.task('lint', function() {
   return lint(config.paths.js);
 });
 
-gulp.task('default', ['html', 'lint', 'js', 'sass'], function() {
+gulp.task('default', ['lint', 'html', 'fonts', 'js', 'sass'], function() {
   if (argv.watch) {
     gulp.watch(config.paths.scss, ['sass']);
     gulp.watch(config.paths.js, ['lint']);
   }
 });
 
-gulp.task('build', ['html', 'sass-production'], function() {
+gulp.task('build', ['html', 'fonts', 'sass-production'], function() {
   var bundler = browserify({
     paths: config.paths.jsDirs,
     entries: [config.paths.mainJs],
