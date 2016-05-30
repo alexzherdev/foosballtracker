@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom';
+import 'babel-polyfill';
 
 import routes from './routes';
 
