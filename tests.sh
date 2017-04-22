@@ -13,7 +13,7 @@ echo "Running UI tests..."
 uiPid=$!
 
 echo "Running API tests..."
-./node_modules/.bin/babel-node ./node_modules/isparta/lib/cli cover ./src/api/spec/support/run.js --dir ./coverage/api/ -x secrets.js &
+./node_modules/.bin/babel-node ./src/api/spec/support/run.js &
 apiPid=$!
 
 wait $uiPid
@@ -28,12 +28,12 @@ if [ $uiCode -ne 0 ] || [ $apiCode -ne 0 ]; then
   exit 1
 fi
 
-echo "Combining reports..."
-./node_modules/.bin/babel-node ./node_modules/istanbul/lib/cli report --dir ./coverage/combined --include **/coverage.json lcov
+#echo "Combining reports..."
+#./node_modules/.bin/babel-node ./node_modules/istanbul/lib/cli report --dir ./coverage/combined --include **/coverage.json lcov
 
 # try to fix sed for OS X
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  sed -i .old -e 's?SF:'$(pwd)'/?SF:?g' coverage/combined/lcov.info
-else
-  sed -i -e 's?SF:'$(pwd)'/?SF:?g' coverage/combined/lcov.info
-fi
+#if [[ "$OSTYPE" == "darwin"* ]]; then
+#  sed -i .old -e 's?SF:'$(pwd)'/?SF:?g' coverage/combined/lcov.info
+#else
+#  sed -i -e 's?SF:'$(pwd)'/?SF:?g' coverage/combined/lcov.info
+#fi
