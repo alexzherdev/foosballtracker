@@ -47,7 +47,7 @@ var config = {
     scss: [
       'src/css/*.scss'
     ],
-    dist: process.env.NODE_ENV === 'production' ? './build' : './dist'
+    dist: ['production', 'sandbox'].indexOf(process.env.NODE_ENV) >= 0 ? './build' : './dist'
   }
 };
 
@@ -63,7 +63,7 @@ gulp.task('html', function() {
   gulp.src(config.paths.html)
     .pipe(htmlreplace({
       'setup-env': {
-        src: process.env.NODE_ENV || 'development',
+        src: process.env.SERVER_ENV || 'development',
         tpl: '<script type="text/javascript">window.env="%s";</script>'
       }
     }))

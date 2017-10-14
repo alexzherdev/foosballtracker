@@ -16,7 +16,7 @@ const teams = require('./controllers/teams');
 
 const app = express();
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.SERVER_ENV === 'production') {
   const basic = auth.basic({
     realm: "Protected Area"
   }, (username, password, callback) => {

@@ -18,6 +18,12 @@ const config = {
     host: 'https://ftstaging.herokuapp.com',
     port: process.env.PORT || 3000,
     assetsDir: 'build'
+  },
+
+  sandbox: {
+    host: 'https://ft-sandbox.herokuapp.com',
+    port: process.env.PORT || 3000,
+    assetsDir: 'build'
   }
 };
 
@@ -26,12 +32,13 @@ const config = {
 });
 
 config.production.url = config.production.host;
+config.sandbox.url = config.sandbox.host;
 
 let env;
 if (typeof window !== 'undefined') {
   env = window.env;
 } else if (typeof process !== 'undefined') {
-  env = process.env.NODE_ENV;
+  env = process.env.SERVER_ENV;
 }
 env = env || 'development';
 
