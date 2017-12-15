@@ -41,6 +41,10 @@ export default class Scores extends React.Component {
     this.setState({ players: PlayerStore.getPlayers() });
   }
 
+  onDeleteScore(id) {
+    ScoreActions.deleteScore(id);
+  }
+
   loadNextPage() {
     ScoreActions.loadScorePage(ScoreStore.getLastPageNum() + 1);
   }
@@ -53,7 +57,9 @@ export default class Scores extends React.Component {
             <div className="panel-heading">
               <h4>Score History</h4>
             </div>
-            <RecentScores scores={this.state.scores} />
+            <RecentScores
+              scores={this.state.scores}
+              onDeleteScoreClick={this.onDeleteScore} />
             <div className="panel-footer text-right">
               <button
                 className="btn btn-default btn-sm"

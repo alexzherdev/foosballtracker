@@ -77,6 +77,16 @@ let ApiClient = {
       });
   },
 
+  deleteScore(id) {
+    request.delete(`${this.baseUrl()}/matches/${id}`)
+      .end((err, res) => {
+        handleResponse(err, res, (err, res) => {
+          notification('success', 'Match score was successfully deleted.');
+          ScoreActions.deleteScoreResponse(res);
+        });
+      });
+  },
+
   getStatsSummary() {
     request.get(`${this.baseUrl()}/stats/summary`)
       .end((err, res) => {

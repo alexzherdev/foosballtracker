@@ -35,4 +35,12 @@ router.post('/', (req, res, next) => {
   }).catch(next);
 });
 
+router.delete('/:matchId', (req, res, next) => {
+  new Match({ id: +req.params.matchId })
+    .destroy()
+    .then(() => {
+      res.send({ id: +req.params.matchId });
+    }).catch(next);
+});
+
 module.exports = router;

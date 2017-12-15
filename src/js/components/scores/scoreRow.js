@@ -2,8 +2,11 @@ import React from 'react';
 
 import TeamLink from '../common/teamLink';
 
+const onTrashClickBound = (handler, id) => () => {
+  handler(id);
+}
 
-const ScoreRow = ({score}) => {
+const ScoreRow = ({score, onTrashClick}) => {
   let teamNames;
   if (score.team1_score > score.team2_score) {
     teamNames = [<strong>{score.team1_name}</strong>, score.team2_name];
@@ -21,13 +24,17 @@ const ScoreRow = ({score}) => {
           <span className="team-2">
             <strong>{score.team2_score}</strong>&nbsp;<TeamLink id={score.team2_id}>{teamNames[1]}</TeamLink></span>
         </span>
+        <a className="delete-score" onClick={onTrashClickBound(onTrashClick, score.id)}>
+          <span className="glyphicon glyphicon-trash"></span>
+        </a>
       </td>
     </tr>
   );
 };
 
 ScoreRow.propTypes = {
-  score: React.PropTypes.object.isRequired
+  score: React.PropTypes.object.isRequired,
+  onTrashClick: React.PropTypes.func.isRequired
 };
 
 export default ScoreRow;

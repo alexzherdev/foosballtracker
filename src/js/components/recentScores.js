@@ -3,16 +3,22 @@ import moment from 'moment';
 
 import ScoreRow from './scores/scoreRow';
 
-const RecentScores = ({scores}) => {
+const RecentScores = ({scores, onDeleteScoreClick}) => {
   let rows = [];
   let curDate = null;
   for (let i = 0; i < scores.length; i++) {
     const s = scores[i];
     if (!moment(s.created_at).isSame(curDate, 'day')) {
-      rows.push(<tr key={`date-${s.id}`} className="active"><td><strong>{moment(s.created_at).format('MMM D')}</strong></td></tr>);
+      rows.push(
+        <tr key={`date-${s.id}`} className="active">
+          <td>
+            <strong>{moment(s.created_at).format('MMM D')}</strong>
+          </td>
+        </tr>
+      );
       curDate = s.created_at;
     }
-    rows.push(<ScoreRow score={s} key={s.id} />);
+    rows.push(<ScoreRow score={s} key={s.id} onTrashClick={onDeleteScoreClick} />);
   }
   return (
     <table className="table table-condensed table-bordered">
@@ -24,7 +30,8 @@ const RecentScores = ({scores}) => {
 };
 
 RecentScores.propTypes = {
-  scores: React.PropTypes.array.isRequired
+  scores: React.PropTypes.array.isRequired,
+  onDeleteScoreClick: React.PropTypes.func.isRequired
 };
 
 export default RecentScores;
