@@ -74,6 +74,12 @@ let callback = ({ action: { actionType, data }}) => {
       ScoreStore.emitChange();
       break;
     }
+    case ScoreConstants.DELETE_SCORE_RESPONSE: {
+      const index = _store.paginated.scores.findIndex((s) => s.id === data.id);
+      _store.paginated.scores.splice(index, 1);
+      ScoreStore.emitChange();
+      break;
+    }
   }
 };
 FTDispatcher.register(callback);

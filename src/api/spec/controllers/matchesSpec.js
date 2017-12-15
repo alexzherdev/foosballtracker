@@ -61,6 +61,22 @@ describe('Matches controller', function() {
     });
   });
 
+  describe('delete', function() {
+    it('deletes a match', function(done) {
+      request(app)
+        .delete('/api/matches/1')
+        .end(() => {
+          Match.forge().orderBy('id', 'desc').fetchAll().then((matches) => {
+            let json = matches.toJSON();
+            expect(json.length).toEqual(11);
+            const score = json.find((s) => s.id === 1);
+            expect(score).toBeUndefined();
+            done();
+          });
+        });
+    });
+  });
+
   describe('h2h', function() {
     it('returns matches between two teams', function(done) {
       request(app)

@@ -34,6 +34,16 @@ const ScoreActions = {
 
   loadScorePageResponse(response) {
     FTDispatcher.handleServerAction({ actionType: ScoreConstants.LOAD_SCORE_PAGE_RESPONSE, data: response.body });
+  },
+
+  deleteScore(id) {
+    FTDispatcher.handleViewAction({ actionType: ScoreConstants.DELETE_SCORE });
+
+    ApiClient.deleteScore(id);
+  },
+
+  deleteScoreResponse(response) {
+    FTDispatcher.handleServerAction({ actionType: ScoreConstants.DELETE_SCORE_RESPONSE, data: response.body });
   }
 };
 
