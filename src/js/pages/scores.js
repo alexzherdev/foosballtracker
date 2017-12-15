@@ -42,7 +42,9 @@ export default class Scores extends React.Component {
   }
 
   onDeleteScore(id) {
-    ScoreActions.deleteScore(id);
+    if (confirm('Are you sure?')) {
+      ScoreActions.deleteScore(id);
+    }
   }
 
   loadNextPage() {
