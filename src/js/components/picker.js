@@ -1,16 +1,16 @@
 import React from 'react';
-
+import { array, func, string, bool } from 'prop-types';
 import _ from 'lodash';
 
 
 export default class Picker extends React.Component {
   static propTypes = {
-    items: React.PropTypes.array.isRequired,
-    onItemSelect: React.PropTypes.func.isRequired,
-    placeholder: React.PropTypes.string,
-    className: React.PropTypes.string,
-    getItemLabel: React.PropTypes.func,
-    usePlaceholderItem: React.PropTypes.bool
+    items: array.isRequired,
+    onItemSelect: func.isRequired,
+    placeholder: string,
+    className: string,
+    getItemLabel: func,
+    usePlaceholderItem: bool
   };
 
   constructor(props) {

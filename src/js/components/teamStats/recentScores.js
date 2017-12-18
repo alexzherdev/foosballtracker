@@ -1,4 +1,5 @@
 import React from 'react';
+import { array, object } from 'prop-types';
 
 import TeamScoreRow from './teamScoreRow';
 
@@ -22,8 +23,8 @@ const TeamRecentScores = ({scores, team}) => {
 };
 
 TeamRecentScores.propTypes = {
-  scores: React.PropTypes.array.isRequired,
-  team: React.PropTypes.object.isRequired
+  scores: array.isRequired,
+  team: object.isRequired
 };
 
 export default TeamRecentScores;

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { array } from 'prop-types';
 import _ from 'lodash';
 
 import PlayerPicker from './playerPicker';
@@ -8,7 +8,7 @@ import ScoreActions from '../actions/scoreActions';
 
 export default class NewScoreForm extends React.Component {
   static propTypes = {
-    players: React.PropTypes.array.isRequired
+    players: array.isRequired
   };
 
   constructor(props) {

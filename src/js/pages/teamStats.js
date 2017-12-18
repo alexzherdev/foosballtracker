@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { object } from 'prop-types';
 
 import StatsStore from '../stores/statsStore';
 import StatsActions from '../actions/statsActions';
@@ -14,7 +15,7 @@ import TeamHeadToHead from '../components/teamStats/headToHead';
 
 export default class TeamStats extends React.Component {
   static propTypes = {
-    params: React.PropTypes.object.isRequired
+    params: object.isRequired
   };
 
   constructor(props) {

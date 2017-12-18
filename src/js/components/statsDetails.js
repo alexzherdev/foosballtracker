@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { array } from 'prop-types';
 
 import { formatPercentage } from './utils';
 
@@ -61,7 +62,7 @@ const StatsDetails = ({stats}) => {
 };
 
 StatsDetails.propTypes = {
-  stats: React.PropTypes.array
+  stats: array
 };
 
 export default StatsDetails;

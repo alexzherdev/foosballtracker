@@ -1,4 +1,5 @@
 import React from 'react';
+import { array, func } from 'prop-types';
 
 import Picker from './picker';
 
@@ -27,9 +28,9 @@ const TeamPicker = ({teams, onTeamSelect, getLabel}) => {
 };
 
 TeamPicker.propTypes = {
-  teams: React.PropTypes.array.isRequired,
-  onTeamSelect: React.PropTypes.func.isRequired,
-  getLabel: React.PropTypes.func
+  teams: array.isRequired,
+  onTeamSelect: func.isRequired,
+  getLabel: func
 };
 
 export default TeamPicker;

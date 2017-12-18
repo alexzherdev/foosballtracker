@@ -1,4 +1,5 @@
 import React from 'react';
+import { object } from 'prop-types';
 
 
 const TeamStreaks = ({stats}) => {
@@ -38,7 +39,7 @@ const TeamStreaks = ({stats}) => {
 };
 
 TeamStreaks.propTypes = {
-  stats: React.PropTypes.object.isRequired
+  stats: object.isRequired
 };
 
 export default TeamStreaks;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { object } from 'prop-types';
 
 import { formatDecimal } from '../utils';
 
@@ -40,7 +41,7 @@ const TeamScoring = ({stats}) =>
   </div>;
 
 TeamScoring.propTypes = {
-  stats: React.PropTypes.object.isRequired
+  stats: object.isRequired
 };
 
 export default TeamScoring;

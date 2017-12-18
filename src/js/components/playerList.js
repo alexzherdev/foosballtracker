@@ -1,4 +1,5 @@
 import React from 'react';
+import { array } from 'prop-types';
 
 import { formatPercentage } from './utils';
 
@@ -37,7 +38,7 @@ const PlayerList = ({players}) => {
 };
 
 PlayerList.propTypes = {
-  players: React.PropTypes.array.isRequired
+  players: array.isRequired
 };
 
 export default PlayerList;

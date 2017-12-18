@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from "react-router";
+import { object, string, node } from 'prop-types';
+import { Link } from 'react-router';
 
 
 const NavLink = (props, context) => {
   let isActive = context.router.isActive(props.to),
-    className = isActive ? "active" : "";
+    className = isActive ? 'active' : '';
 
   return (
     <li className={className}>
@@ -16,12 +17,12 @@ const NavLink = (props, context) => {
 };
 
 NavLink.contextTypes = {
-  router: React.PropTypes.object
+  router: object
 };
 
 NavLink.propTypes = {
-  to: React.PropTypes.string.isRequired,
-  children: React.PropTypes.node
+  to: string.isRequired,
+  children: node
 };
 
 export default NavLink;

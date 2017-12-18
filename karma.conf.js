@@ -1,4 +1,3 @@
-const RewireWebpackPlugin = require("rewire-webpack");
 const path = require('path');
 
 module.exports = function(config) {
@@ -21,11 +20,6 @@ module.exports = function(config) {
         net: 'empty'
       },
 
-      isparta: {
-          embedSource: true,
-          noAutoWrap: true
-      },
-
       module: {
         noParse: [
             /node_modules\/sinon/
@@ -37,34 +31,14 @@ module.exports = function(config) {
               path.resolve('node_modules/')
             ],
             loader: 'babel-loader',
-            query: { presets: ['es2015'] }
-          },
-          // Instrument source files with isparta-loader (will perform babel transpiling).
-          {
-            test: /\.js$/,
-            include: [
-              path.resolve('src/')
-            ],
-            loader: 'isparta'
+            query: { presets: ['es2015'], plugins: ['transform-class-properties'] }
           }
         ]
       },
-      plugins: [new RewireWebpackPlugin()],
       watch: true
     },
     webpackServer: {
       noInfo: true
-    },
-    coverageReporter: {
-      dir: 'coverage/ui',
-      reporters: [
-        { type: 'lcov', subdir: 'lcov-report' },
-        { type: 'json', subdir: './', file: 'coverage.json' }
-      ],
-      instrumenters: { isparta : require('isparta') },
-      instrumenter: {
-        '**/*.js': 'isparta'
-      }
     }
   });
 };
