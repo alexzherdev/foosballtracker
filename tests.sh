@@ -8,22 +8,16 @@ if [ $lintCode -ne 0 ]; then
   exit $lintCode
 fi;
 
-echo "Running UI tests..."
-./node_modules/karma/bin/karma start &
-uiPid=$!
 
 echo "Running API tests..."
 ./node_modules/.bin/babel-node ./src/api/spec/support/run.js &
 apiPid=$!
 
-wait $uiPid
-uiCode=$?
 
 wait $apiPid
 apiCode=$?
 
-if [ $uiCode -ne 0 ] || [ $apiCode -ne 0 ]; then
-  kill $uiPid &> /dev/null
+if [ $apiCode -ne 0 ]; then
   kill $apiPid &> /dev/null
   exit 1
 fi

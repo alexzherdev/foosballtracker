@@ -1,9 +1,10 @@
 import React from 'react';
+import { func } from 'prop-types';
 
 
 export default class AddPlayerForm extends React.Component {
   static propTypes = {
-    onPlayerCreate: React.PropTypes.func.isRequired
+    onPlayerCreate: func.isRequired
   };
 
   state = {

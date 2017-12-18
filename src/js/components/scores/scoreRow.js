@@ -1,4 +1,5 @@
 import React from 'react';
+import { object, func } from 'prop-types';
 
 import TeamLink from '../common/teamLink';
 
@@ -33,8 +34,8 @@ const ScoreRow = ({score, onTrashClick}) => {
 };
 
 ScoreRow.propTypes = {
-  score: React.PropTypes.object.isRequired,
-  onTrashClick: React.PropTypes.func.isRequired
+  score: object.isRequired,
+  onTrashClick: func.isRequired
 };
 
 export default ScoreRow;

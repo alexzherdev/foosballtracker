@@ -1,4 +1,5 @@
 import React from 'react';
+import { object } from 'prop-types';
 
 import { formatPercentage } from '../utils';
 
@@ -32,7 +33,7 @@ const TeamGeneral = ({stats}) =>
   </div>;
 
 TeamGeneral.propTypes = {
-  stats: React.PropTypes.object.isRequired
+  stats: object.isRequired
 };
 
 export default TeamGeneral;

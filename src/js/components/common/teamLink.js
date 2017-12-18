@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-
+import { number, node } from 'prop-types';
 
 const TeamLink = ({id, children}) =>
   <Link to={`/stats/${id}`}>
@@ -8,8 +8,8 @@ const TeamLink = ({id, children}) =>
   </Link>;
 
 TeamLink.propTypes = {
-  id: React.PropTypes.number.isRequired,
-  children: React.PropTypes.node
+  id: number.isRequired,
+  children: node
 };
 
 export default TeamLink;

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { object } from 'prop-types';
 import moment from 'moment';
 import classnames from 'classnames';
 
@@ -33,8 +33,8 @@ const TeamScoreRow = ({score, team}) => {
 };
 
 TeamScoreRow.propTypes = {
-  score: React.PropTypes.object.isRequired,
-  team: React.PropTypes.object.isRequired
+  score: object.isRequired,
+  team: object.isRequired
 };
 
 export default TeamScoreRow;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { array, func } from 'prop-types';
 
 import Picker from './picker';
 
@@ -11,8 +12,8 @@ const PlayerPicker = ({players, onPlayerSelect}) =>
     usePlaceholderItem={true} />;
 
 PlayerPicker.propTypes = {
-  players: React.PropTypes.array.isRequired,
-  onPlayerSelect: React.PropTypes.func.isRequired
+  players: array.isRequired,
+  onPlayerSelect: func.isRequired
 }
 
 export default PlayerPicker;

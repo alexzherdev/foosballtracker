@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { array, func } from 'prop-types';
 
 import ScoreRow from './scores/scoreRow';
 
@@ -30,8 +31,8 @@ const RecentScores = ({scores, onDeleteScoreClick}) => {
 };
 
 RecentScores.propTypes = {
-  scores: React.PropTypes.array.isRequired,
-  onDeleteScoreClick: React.PropTypes.func.isRequired
+  scores: array.isRequired,
+  onDeleteScoreClick: func.isRequired
 };
 
 export default RecentScores;

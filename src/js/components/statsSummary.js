@@ -1,4 +1,5 @@
 import React from 'react';
+import { object } from 'prop-types';
 
 import { formatPercentage } from './utils';
 
@@ -39,7 +40,7 @@ const StatsSummary = ({stats}) => {
 };
 
 StatsSummary.propTypes = {
-  stats: React.PropTypes.object
+  stats: object
 };
 
 export default StatsSummary;

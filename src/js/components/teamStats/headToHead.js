@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import { object, array, func } from 'prop-types';
 
 import TeamPicker from '../teamPicker';
 import { formatPercentage } from '../utils';
@@ -123,11 +124,11 @@ const TeamHeadToHead = ({stats, teams, onTeamSelect, h2hStats, h2hMatches}) => {
 };
 
 TeamHeadToHead.propTypes = {
-  stats: React.PropTypes.object.isRequired,
-  teams: React.PropTypes.array.isRequired,
-  onTeamSelect: React.PropTypes.func.isRequired,
-  h2hStats: React.PropTypes.object,
-  h2hMatches: React.PropTypes.array
+  stats: object.isRequired,
+  teams: array.isRequired,
+  onTeamSelect: func.isRequired,
+  h2hStats: object,
+  h2hMatches: array
 };
 
 export default TeamHeadToHead;
