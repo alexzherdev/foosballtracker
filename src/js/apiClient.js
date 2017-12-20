@@ -31,13 +31,7 @@ let ApiClient = {
   },
 
   createPlayer(name) {
-    request.post(`${this.baseUrl()}/players`)
-      .send({ name })
-      .end((err, res) => {
-        handleResponse(err, res, (err, res) => {
-          PlayerActions.createPlayerResponse(res);
-        });
-      });
+    return request.post(`${this.baseUrl()}/players`).send({ name });
   },
 
   getPlayers() {
@@ -50,12 +44,7 @@ let ApiClient = {
   },
 
   getPlayersStats() {
-    request.get(`${this.baseUrl()}/stats/players`)
-      .end((err, res) => {
-        handleResponse(err, res, (err, res) => {
-          StatsActions.loadPlayersStatsResponse(res);
-        });
-      });
+    return request.get(`${this.baseUrl()}/stats/players`);
   },
 
   getScores() {

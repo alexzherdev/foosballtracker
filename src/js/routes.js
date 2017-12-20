@@ -4,7 +4,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import App from './pages/app';
 import Home from './pages/home';
 import Scores from './pages/scores';
-import Players from './pages/players';
+import PlayersApp from './pages/PlayersApp';
 import Stats from './pages/stats';
 import TeamStats from './pages/teamStats';
 
@@ -18,7 +18,7 @@ const routes = ((
         <IndexRoute component={Stats} />
         <Route path=":teamId" component={TeamStats} />
       </Route>
-      <Route path="players" component={Players} />
+      <Route path="players" component={PlayersApp} />
     </Route>
   </Router>
 ));

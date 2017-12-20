@@ -1,6 +1,8 @@
 import FTDispatcher from '../dispatchers/dispatcher';
 import StatsConstants from '../constants/statsConstants';
+import * as types from '../constants/actionTypes';
 import ApiClient from '../apiClient';
+
 
 
 const StatsActions = {
@@ -40,10 +42,6 @@ const StatsActions = {
     ApiClient.getPlayersStats();
   },
 
-  loadPlayersStatsResponse(response) {
-    FTDispatcher.handleServerAction({ actionType: StatsConstants.LOAD_PLAYERS_STATS_RESPONSE, data: response.body });
-  },
-
   loadH2HMatches(team1Id, team2Id) {
     FTDispatcher.handleViewAction({ actionType: StatsConstants.LOAD_H2H_MATCHES })
 
@@ -54,5 +52,17 @@ const StatsActions = {
     FTDispatcher.handleServerAction({ actionType: StatsConstants.LOAD_H2H_MATCHES_RESPONSE, data: response.body });
   }
 };
+
+function loadPlayersStatsResponse(data) {
+  return { type: types.LOAD_PLAYERS_STATS_RESPONSE, data };
+}
+
+export function loadPlayersStats() {
+  return function(dispatch) {
+    ApiClient.getPlayersStats().then((res) => {
+      dispatch(loadPlayersStatsResponse(res.body));
+    });
+  }
+}
 
 export default StatsActions;
