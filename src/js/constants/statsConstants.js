@@ -2,8 +2,6 @@ import keyMirror from 'keymirror';
 
 
 let StatsConstants = keyMirror({
-  LOAD_STATS_SUMMARY: null,
-  LOAD_STATS_SUMMARY_RESPONSE: null,
   LOAD_TEAM_STATS: null,
   LOAD_TEAM_STATS_RESPONSE: null,
   LOAD_H2H_MATCHES: null,
