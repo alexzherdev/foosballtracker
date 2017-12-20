@@ -77,12 +77,7 @@ let ApiClient = {
   },
 
   getStatsSummary() {
-    request.get(`${this.baseUrl()}/stats/summary`)
-      .end((err, res) => {
-        handleResponse(err, res, (err, res) => {
-          StatsActions.loadStatsSummaryResponse(res);
-        });
-      });
+    return request.get(`${this.baseUrl()}/stats/summary`);
   },
 
   getStats() {

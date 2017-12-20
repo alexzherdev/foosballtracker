@@ -2,8 +2,8 @@ import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import App from './pages/app';
-import Home from './pages/home';
 import Scores from './pages/scores';
+import HomeApp from './pages/HomeApp';
 import PlayersApp from './pages/PlayersApp';
 import StatsApp from './pages/StatsApp';
 import TeamStats from './pages/teamStats';
@@ -12,7 +12,7 @@ import TeamStats from './pages/teamStats';
 const routes = ((
   <Router history={browserHistory}>
     <Route path="/" component={App}>
-      <IndexRoute component={Home} />
+      <IndexRoute component={HomeApp} />
       <Route path="scores" component={Scores} />
       <Route path="stats">
         <IndexRoute component={StatsApp} />

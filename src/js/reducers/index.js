@@ -12,6 +12,11 @@ export default function(state = {}, action) {
         ...state,
         stats: action.data
       };
+    case types.LOAD_STATS_SUMMARY_RESPONSE:
+      return {
+        ...state,
+        statsSummary: action.data
+      };
     default:
       return state;
   }
