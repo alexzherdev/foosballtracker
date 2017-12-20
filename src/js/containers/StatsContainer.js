@@ -1,31 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { object, func } from 'prop-types';
 
-import StatsStore from '../stores/statsStore';
-import StatsActions from '../actions/statsActions';
 import StatsDetails from '../components/statsDetails';
+import { loadStats } from '../actions/statsActions';
 
 
-export default class Stats extends React.Component {
-  state = {
-    stats: StatsStore.getDetails()
-  };
-
+class StatsContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.onStatsChange = this.onStatsChange.bind(this);
   }
 
   componentDidMount() {
-    StatsStore.addChangeListener(this.onStatsChange);
-    StatsActions.loadStats();
-  }
-
-  componentWillUnmount() {
-    StatsStore.removeChangeListener(this.onStatsChange);
-  }
-
-  onStatsChange() {
-    this.setState({ stats: StatsStore.getDetails() });
+    this.props.loadStats();
   }
 
   render() {
@@ -41,10 +28,10 @@ export default class Stats extends React.Component {
         </ul>
         <div className="tab-content container-fluid">
           <div role="tabpanel" className="tab-pane active" id="twovtwo">
-            <StatsDetails stats={this.state.stats && this.state.stats.twovtwo} />
+            <StatsDetails stats={this.props.stats && this.props.stats.twovtwo} />
           </div>
           <div role="tabpanel" className="tab-pane" id="onevone">
-            <StatsDetails stats={this.state.stats && this.state.stats.onevone} />
+            <StatsDetails stats={this.props.stats && this.props.stats.onevone} />
           </div>
         </div>
 
@@ -52,3 +39,24 @@ export default class Stats extends React.Component {
     );
   }
 }
+
+StatsContainer.propTypes = {
+  stats: object,
+  loadStats: func.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    stats: state.stats
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    loadStats: () => {
+      dispatch(loadStats());
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StatsContainer);
