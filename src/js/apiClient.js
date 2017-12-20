@@ -86,12 +86,7 @@ let ApiClient = {
   },
 
   getStats() {
-    request.get(`${this.baseUrl()}/stats`)
-      .end((err, res) => {
-        handleResponse(err, res, (err, res) => {
-          StatsActions.loadStatsResponse(res);
-        });
-      });
+    return request.get(`${this.baseUrl()}/stats`);
   },
 
   getTeamStats(teamId) {

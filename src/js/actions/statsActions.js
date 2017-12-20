@@ -16,16 +16,6 @@ const StatsActions = {
     FTDispatcher.handleServerAction({ actionType: StatsConstants.LOAD_STATS_SUMMARY_RESPONSE, data: response.body });
   },
 
-  loadStats() {
-    FTDispatcher.handleViewAction({ actionType: StatsConstants.LOAD_STATS });
-
-    ApiClient.getStats();
-  },
-
-  loadStatsResponse(response) {
-    FTDispatcher.handleServerAction({ actionType: StatsConstants.LOAD_STATS_RESPONSE, data: response.body });
-  },
-
   loadTeamStats(teamId) {
     FTDispatcher.handleViewAction({ actionType: StatsConstants.LOAD_TEAM_STATS });
 
@@ -61,6 +51,18 @@ export function loadPlayersStats() {
   return function(dispatch) {
     ApiClient.getPlayersStats().then((res) => {
       dispatch(loadPlayersStatsResponse(res.body));
+    });
+  }
+}
+
+function loadStatsResponse(data) {
+  return { type: types.LOAD_STATS_RESPONSE, data };
+}
+
+export function loadStats() {
+  return function(dispatch) {
+    ApiClient.getStats().then((res) => {
+      dispatch(loadStatsResponse(res.body));
     });
   }
 }

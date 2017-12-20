@@ -6,7 +6,12 @@ export default function(state = {}, action) {
       return {
         ...state,
         playersStats: action.data
-      }
+      };
+    case types.LOAD_STATS_RESPONSE:
+      return {
+        ...state,
+        stats: action.data
+      };
     default:
       return state;
   }
