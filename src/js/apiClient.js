@@ -1,7 +1,6 @@
 import request from 'superagent';
 import toastr from 'toastr';
 
-import PlayerActions from './actions/playerActions';
 import ScoreActions from './actions/scoreActions';
 import StatsActions from './actions/statsActions';
 import TeamActions from './actions/teamActions';
@@ -35,12 +34,7 @@ let ApiClient = {
   },
 
   getPlayers() {
-    request.get(`${this.baseUrl()}/players`)
-      .end((err, res) => {
-        handleResponse(err, res, (err, res) => {
-          PlayerActions.loadPlayersResponse(res);
-        });
-      });
+    return request.get(`${this.baseUrl()}/players`);
   },
 
   getPlayersStats() {
@@ -57,23 +51,12 @@ let ApiClient = {
   },
 
   createScore(team1Score, team2Score, team1, team2) {
-    request.post(`${this.baseUrl()}/matches`)
-      .send({ team1_score: team1Score, team2_score: team2Score, team1, team2 })
-      .end((err, res) => {
-        handleResponse(err, res, (err, res) => {
-          ScoreActions.createScoreResponse(res);
-        });
-      });
+    return request.post(`${this.baseUrl()}/matches`)
+      .send({ team1_score: team1Score, team2_score: team2Score, team1, team2 });
   },
 
   deleteScore(id) {
-    request.delete(`${this.baseUrl()}/matches/${id}`)
-      .end((err, res) => {
-        handleResponse(err, res, (err, res) => {
-          notification('success', 'Match score was successfully deleted.');
-          ScoreActions.deleteScoreResponse(res);
-        });
-      });
+    return request.delete(`${this.baseUrl()}/matches/${id}`);
   },
 
   getStatsSummary() {
@@ -122,13 +105,8 @@ let ApiClient = {
   },
 
   getScorePage(page, pageSize) {
-    request.get(`${this.baseUrl()}/matches`)
-      .query({ page, page_size: pageSize })
-      .end((err, res) => {
-        handleResponse(err, res, (err, res) => {
-          ScoreActions.loadScorePageResponse(res);
-        });
-      });
+    return request.get(`${this.baseUrl()}/matches`)
+      .query({ page, page_size: pageSize });
   }
 };
 
