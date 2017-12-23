@@ -5,7 +5,8 @@
     "no-unused-vars": 2,
     "no-console": 1,
     "react/prefer-stateless-function": 1,
-    "jasmine/no-spec-dupes": [1, "branch"]
+    "jasmine/no-spec-dupes": [1, "branch"],
+    "no-case-declarations": 0
   },
 
   "env": {

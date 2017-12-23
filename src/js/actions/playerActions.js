@@ -1,27 +1,24 @@
-import FTDispatcher from '../dispatchers/dispatcher';
-import PlayerConstants from '../constants/playerConstants';
 import ApiClient from '../apiClient';
 import { loadPlayersStats } from './statsActions';
+import * as types from '../constants/actionTypes';
 
-
-const PlayerActions = {
-  loadPlayers() {
-    FTDispatcher.handleViewAction({ actionType: PlayerConstants.LOAD_PLAYERS });
-
-    ApiClient.getPlayers();
-  },
-
-  loadPlayersResponse(response) {
-    FTDispatcher.handleServerAction({ actionType: PlayerConstants.LOAD_PLAYERS_RESPONSE, data: response.body });
-  }
-};
 
 export function createPlayer(name) {
   return function(dispatch) {
     ApiClient.createPlayer(name).then(() => {
       dispatch(loadPlayersStats());
     });
-  }
+  };
 }
 
-export default PlayerActions;
+function loadPlayersResponse(data) {
+  return { type: types.LOAD_PLAYERS_RESPONSE, data };
+}
+
+export function loadPlayers() {
+  return function(dispatch) {
+    ApiClient.getPlayers().then((res) => {
+      dispatch(loadPlayersResponse(res.body));
+    });
+  };
+}
