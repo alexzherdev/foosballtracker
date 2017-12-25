@@ -1,31 +1,18 @@
-import FTDispatcher from '../dispatchers/dispatcher';
-import StatsConstants from '../constants/statsConstants';
 import * as types from '../constants/actionTypes';
 import ApiClient from '../apiClient';
 
 
+function loadH2HMatchesResponse(data) {
+  return { type: types.LOAD_H2H_MATCHES_RESPONSE, data };
+}
 
-const StatsActions = {
-  loadTeamStats(teamId) {
-    FTDispatcher.handleViewAction({ actionType: StatsConstants.LOAD_TEAM_STATS });
-
-    ApiClient.getTeamStats(teamId);
-  },
-
-  loadTeamStatsResponse(response) {
-    FTDispatcher.handleServerAction({ actionType: StatsConstants.LOAD_TEAM_STATS_RESPONSE, data: response.body });
-  },
-
-  loadH2HMatches(team1Id, team2Id) {
-    FTDispatcher.handleViewAction({ actionType: StatsConstants.LOAD_H2H_MATCHES })
-
-    ApiClient.getH2HMatches(team1Id, team2Id);
-  },
-
-  loadH2HMatchesResponse(response) {
-    FTDispatcher.handleServerAction({ actionType: StatsConstants.LOAD_H2H_MATCHES_RESPONSE, data: response.body });
-  }
-};
+export function loadH2HMatches(team1Id, team2Id) {
+  return function(dispatch) {
+    ApiClient.getH2HMatches(team1Id, team2Id).then((res) => {
+      dispatch(loadH2HMatchesResponse(res.body));
+    });
+  };
+}
 
 function loadPlayersStatsResponse(data) {
   return { type: types.LOAD_PLAYERS_STATS_RESPONSE, data };
@@ -63,4 +50,14 @@ export function loadStatsSummary() {
   };
 }
 
-export default StatsActions;
+function loadTeamStatsResponse(data) {
+  return { type: types.LOAD_TEAM_STATS_RESPONSE, data };
+}
+
+export function loadTeamStats(teamId) {
+  return function(dispatch) {
+    ApiClient.getTeamStats(teamId).then((res) => {
+      dispatch(loadTeamStatsResponse(res.body));
+    });
+  };
+}

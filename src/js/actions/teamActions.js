@@ -1,6 +1,7 @@
 import FTDispatcher from '../dispatchers/dispatcher';
 import TeamConstants from '../constants/teamConstants';
 import ApiClient from '../apiClient';
+import * as types from '../constants/actionTypes';
 
 
 const TeamActions = {
@@ -24,5 +25,17 @@ const TeamActions = {
     FTDispatcher.handleServerAction({ actionType: TeamConstants.LOAD_H2H_OPPONENTS_RESPONSE, data: response.body });
   }
 };
+
+function loadH2HOpponentsResponse(data) {
+  return { type: types.LOAD_H2H_OPPONENTS_RESPONSE, data };
+}
+
+export function loadH2HOpponents(teamId) {
+  return function(dispatch) {
+    ApiClient.getH2HOpponents(teamId).then((res) => {
+      dispatch(loadH2HOpponentsResponse(res.body));
+    });
+  };
+}
 
 export default TeamActions;

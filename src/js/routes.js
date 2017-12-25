@@ -6,7 +6,7 @@ import ScoresApp from './pages/ScoresApp';
 import HomeApp from './pages/HomeApp';
 import PlayersApp from './pages/PlayersApp';
 import StatsApp from './pages/StatsApp';
-import TeamStats from './pages/teamStats';
+import TeamStatsApp from './pages/TeamStatsApp';
 
 
 const routes = ((
@@ -16,7 +16,7 @@ const routes = ((
       <Route path="scores" component={ScoresApp} />
       <Route path="stats">
         <IndexRoute component={StatsApp} />
-        <Route path=":teamId" component={TeamStats} />
+        <Route path=":teamId" component={TeamStatsApp} />
       </Route>
       <Route path="players" component={PlayersApp} />
     </Route>
