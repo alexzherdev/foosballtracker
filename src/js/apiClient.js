@@ -2,7 +2,6 @@ import request from 'superagent';
 import toastr from 'toastr';
 
 import ScoreActions from './actions/scoreActions';
-import StatsActions from './actions/statsActions';
 import TeamActions from './actions/teamActions';
 
 import config from '../../config';
@@ -68,12 +67,7 @@ let ApiClient = {
   },
 
   getTeamStats(teamId) {
-    request.get(`${this.baseUrl()}/stats/${teamId}`)
-      .end((err, res) => {
-        handleResponse(err, res, (err, res) => {
-          StatsActions.loadTeamStatsResponse(res);
-        });
-      });
+    return request.get(`${this.baseUrl()}/stats/${teamId}`);
   },
 
   getTeams() {
@@ -86,22 +80,12 @@ let ApiClient = {
   },
 
   getH2HOpponents(teamId) {
-    request.get(`${this.baseUrl()}/teams/${teamId}/opponents`)
-      .end((err, res) => {
-        handleResponse(err, res, (err, res) => {
-          TeamActions.loadH2HOpponentsResponse(res);
-        });
-      });
+    return request.get(`${this.baseUrl()}/teams/${teamId}/opponents`);
   },
 
   getH2HMatches(team1Id, team2Id) {
-    request.get(`${this.baseUrl()}/matches/h2h`)
-      .query({ team1_id: team1Id, team2_id: team2Id })
-      .end((err, res) => {
-        handleResponse(err, res, (err, res) => {
-          StatsActions.loadH2HMatchesResponse(res);
-        });
-      });
+    return request.get(`${this.baseUrl()}/matches/h2h`)
+      .query({ team1_id: team1Id, team2_id: team2Id });
   },
 
   getScorePage(page, pageSize) {

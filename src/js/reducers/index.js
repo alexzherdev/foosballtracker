@@ -3,7 +3,7 @@ import * as types from '../constants/actionTypes';
 const defaultState = {
   playersStats: [],
   players: [],
-  stats: [],
+  stats: {},
   statsSummary: {},
   currentScorePage: 1,
   paginatedScores: [],
@@ -29,8 +29,10 @@ export default function(state = defaultState, action) {
         statsSummary: action.data
       };
     case types.SET_CURRENT_SCORE_PAGE:
+      const paginatedScores = action.page === 1 ? [] : state.paginatedScores;
       return {
         ...state,
+        paginatedScores,
         currentScorePage: action.page
       };
     case types.LOAD_SCORE_PAGE_RESPONSE:
@@ -50,6 +52,24 @@ export default function(state = defaultState, action) {
       return {
         ...state,
         paginatedScores: [action.data, ...state.paginatedScores]
+      };
+    case types.LOAD_TEAM_STATS_RESPONSE:
+      return {
+        ...state,
+        teamStats: {
+          ...state.teamStats,
+          [action.data.team.id]: action.data
+        }
+      };
+    case types.LOAD_H2H_OPPONENTS_RESPONSE:
+      return {
+        ...state,
+        h2hOpponents: action.data
+      };
+    case types.LOAD_H2H_MATCHES_RESPONSE:
+      return {
+        ...state,
+        h2hMatches: action.data
       };
     default:
       return state;

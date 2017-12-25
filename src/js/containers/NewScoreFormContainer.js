@@ -18,8 +18,6 @@ class NewScoreFormContainer extends React.Component {
     super(props);
 
     this.state = {
-      team1Score: '',
-      team2Score: '',
       team1: [],
       team2: [],
       players: []

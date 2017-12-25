@@ -1,7 +1,5 @@
 import toastr from 'toastr';
 
-import FTDispatcher from '../dispatchers/dispatcher';
-import ScoreConstants from '../constants/scoreConstants';
 import ApiClient from '../apiClient';
 import * as types from '../constants/actionTypes';
 
@@ -11,17 +9,6 @@ const notification = (style, text) => {
   toastr[style](text);
 };
 
-const ScoreActions = {
-  loadScores() {
-    FTDispatcher.handleViewAction({ actionType: ScoreConstants.LOAD_SCORES });
-
-    ApiClient.getScores();
-  },
-
-  loadScoresResponse(response) {
-    FTDispatcher.handleServerAction({ actionType: ScoreConstants.LOAD_SCORES_RESPONSE, data: response.body });
-  }
-};
 
 function createScoreResponse(data) {
   return { type: types.CREATE_SCORE_RESPONSE, data };
@@ -67,5 +54,3 @@ export function deleteScore(id) {
     });
   };
 }
-
-export default ScoreActions;
