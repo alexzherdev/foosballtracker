@@ -1,26 +1,24 @@
 import React from 'react';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 
-import App from './pages/app';
-import ScoresApp from './pages/ScoresApp';
-import HomeApp from './pages/HomeApp';
-import PlayersApp from './pages/PlayersApp';
-import StatsApp from './pages/StatsApp';
-import TeamStatsApp from './pages/TeamStatsApp';
+import App from './App';
+import ScoresContainer from './containers/ScoresContainer';
+import HomeContainer from './containers/HomeContainer';
+import PlayersContainer from './containers/PlayersContainer';
+import StatsContainer from './containers/StatsContainer';
+import TeamStatsContainer from './containers/TeamStatsContainer';
 
 
-const routes = ((
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={HomeApp} />
-      <Route path="scores" component={ScoresApp} />
-      <Route path="stats">
-        <IndexRoute component={StatsApp} />
-        <Route path=":teamId" component={TeamStatsApp} />
-      </Route>
-      <Route path="players" component={PlayersApp} />
+const routes = (
+  <Route path="/" component={App}>
+    <IndexRoute component={HomeContainer} />
+    <Route path="scores" component={ScoresContainer} />
+    <Route path="stats">
+      <IndexRoute component={StatsContainer} />
+      <Route path=":teamId" component={TeamStatsContainer} />
     </Route>
-  </Router>
-));
+    <Route path="players" component={PlayersContainer} />
+  </Route>
+);
 
 export default routes;

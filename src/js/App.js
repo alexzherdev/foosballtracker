@@ -1,7 +1,7 @@
 import React from 'react';
 import { node } from 'prop-types';
 
-import Nav from '../components/nav';
+import Nav from './components/nav';
 
 
 const App = ({children}) =>

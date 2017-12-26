@@ -14,7 +14,7 @@ import { loadTeamStats, loadH2HMatches } from '../actions/statsActions';
 
 class TeamStatsContainer extends React.Component {
   static propTypes = {
-    teamId: number.isRequired,
+    params: object.isRequired,
     loadTeamStats: func.isRequired,
     loadH2HOpponents: func.isRequired,
     loadH2HMatches: func.isRequired,
@@ -26,11 +26,12 @@ class TeamStatsContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.teamId = +this.props.params.teamId;
   }
 
   componentDidMount() {
-    this.props.loadTeamStats(this.props.teamId);
-    this.props.loadH2HOpponents(this.props.teamId);
+    this.props.loadTeamStats(this.teamId);
+    this.props.loadH2HOpponents(this.teamId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,7 +43,7 @@ class TeamStatsContainer extends React.Component {
   onH2HTeamSelect(id) {
     this.setState({ h2hTeamId: id});
     this.props.loadTeamStats(id);
-    this.props.loadH2HMatches(this.props.teamId, id);
+    this.props.loadH2HMatches(this.teamId, id);
   }
 
   render() {
@@ -80,7 +81,7 @@ class TeamStatsContainer extends React.Component {
 
 function mapStateToProps(state, ownProps) {
   return {
-    stats: state.teamStats && state.teamStats[ownProps.teamId],
+    stats: state.teamStats && state.teamStats[+ownProps.params.teamId],
     teams: state.h2hOpponents,
     teamStats: state.teamStats,
     h2hMatches: state.h2hMatches

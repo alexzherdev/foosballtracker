@@ -29,10 +29,7 @@ var config = {
       './src/js/',
       './src/js/actions/',
       './src/js/components/',
-      './src/js/constants/',
-      './src/js/dispatchers/',
-      './src/js/pages/',
-      './src/js/stores/'
+      './src/js/constants/'
     ],
     js: './src/**/*.js',
     mainJs: './src/js/main.js',

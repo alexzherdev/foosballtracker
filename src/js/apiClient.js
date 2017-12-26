@@ -1,8 +1,6 @@
 import request from 'superagent';
 import toastr from 'toastr';
 
-import ScoreActions from './actions/scoreActions';
-import TeamActions from './actions/teamActions';
 
 import config from '../../config';
 
@@ -40,15 +38,6 @@ let ApiClient = {
     return request.get(`${this.baseUrl()}/stats/players`);
   },
 
-  getScores() {
-    request.get(`${this.baseUrl()}/matches`)
-      .end((err, res) => {
-        handleResponse(err, res, (err, res) => {
-          ScoreActions.loadScoresResponse(res);
-        });
-      });
-  },
-
   createScore(team1Score, team2Score, team1, team2) {
     return request.post(`${this.baseUrl()}/matches`)
       .send({ team1_score: team1Score, team2_score: team2Score, team1, team2 });
@@ -68,15 +57,6 @@ let ApiClient = {
 
   getTeamStats(teamId) {
     return request.get(`${this.baseUrl()}/stats/${teamId}`);
-  },
-
-  getTeams() {
-    request.get(`${this.baseUrl()}/teams`)
-      .end((err, res) => {
-        handleResponse(err, res, (err, res) => {
-          TeamActions.loadTeamsResponse(res);
-        });
-      });
   },
 
   getH2HOpponents(teamId) {
